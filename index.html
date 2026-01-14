@@ -3,14 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional Resume Builder PH</title>
-<meta name="description" content="Create professional resumes online with detailed templates. Free & Premium options for students, graduates, and job seekers in the Philippines.">
-<meta name="keywords" content="resume builder, free resume, professional CV, Philippines">
-
+<title>Designer-Grade Resume Builder PH</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 <style>
-* { box-sizing: border-box; font-family: Arial, sans-serif; margin:0; padding:0; }
+* { box-sizing:border-box; margin:0; padding:0; font-family: 'Arial', sans-serif; }
 body { background:#f3f4f6; }
 a { text-decoration:none; }
 
@@ -30,46 +27,46 @@ button { width:100%; padding:12px; margin-top:10px; border:none; border-radius:5
 button.upgrade { background:#16a34a; }
 button:hover { opacity:0.9; }
 
-/* Resume Templates */
-.resume { border:1px solid #ddd; padding:25px; background:#fff; margin-bottom:10px; display:flex; flex-direction:row; gap:20px; }
-.resume-left { flex:1; border-right:1px solid #ddd; padding-right:15px; display:flex; flex-direction:column; align-items:center; }
-.resume-right { flex:2; padding-left:15px; }
+/* Customization */
+.customization { display:flex; gap:10px; margin-bottom:10px; }
+.customization select, .customization input { flex:1; }
 
-/* Photo Section */
-#p-photo { width:120px; height:120px; border-radius:50%; object-fit:cover; border:2px solid #ccc; margin-bottom:15px; }
+/* Designer-Grade Resume */
+.resume { width:100%; max-width:800px; background:#fff; display:flex; box-shadow:0 4px 15px rgba(0,0,0,0.12); border-radius:10px; overflow:hidden; margin-bottom:10px; }
+.resume-sidebar { background:#2563eb; color:#fff; flex:1; padding:30px 20px; display:flex; flex-direction:column; align-items:center; transition: background 0.3s; }
+.resume-main { flex:2; padding:30px 25px; position:relative; }
 
-/* Resume Text */
-.resume h1 { margin-bottom:5px; font-size:28px; text-align:left; }
-.resume h3 { margin-top:0; font-size:20px; margin-bottom:10px; }
-.resume h4 { margin-bottom:5px; border-bottom:1px solid #ddd; padding-bottom:4px; font-size:16px; margin-top:15px; }
-.resume ul { padding-left:20px; margin:5px 0; }
-.resume li { margin-bottom:5px; }
-.resume p { margin-bottom:8px; line-height:1.4; }
+/* Photo */
+#p-photo { width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid #fff; margin-bottom:20px; }
 
-/* Watermark Below Resume */
+/* Sidebar Text */
+.resume-sidebar h4 { margin-top:20px; border-bottom:1px solid rgba(255,255,255,0.5); padding-bottom:5px; width:100%; font-size:16px; text-align:left; }
+.resume-sidebar ul { list-style:none; padding-left:0; width:100%; }
+.resume-sidebar li { margin:8px 0; display:flex; align-items:center; gap:10px; font-size:14px; }
+.resume-sidebar li i { width:18px; color:#fff; transition: color 0.3s; }
+
+/* Main Text */
+.resume-main h1 { font-size:32px; color:#111; margin-bottom:5px; }
+.resume-main h3 { font-size:20px; color:#333; margin-top:0; margin-bottom:15px; }
+.resume-main h4 { margin-bottom:5px; border-bottom:2px solid #2563eb; padding-bottom:4px; font-size:16px; margin-top:15px; color:#2563eb; }
+.resume-main p { margin-bottom:10px; line-height:1.5; color:#555; }
+.resume-main ul { padding-left:20px; margin:5px 0; }
+.resume-main li { margin-bottom:5px; color:#555; }
+
+/* Watermark */
 .watermark { text-align:center; font-size:12px; opacity:0.5; margin-top:10px; }
-
-/* Template Variations */
-.template-classic { color:#2563eb; font-family:Arial, sans-serif; }
-.template-modern { color:#333; font-family:'Helvetica Neue', sans-serif; }
-.template-bold { color:#fff; background:#2563eb; padding:15px; border-radius:5px; }
-.template-bold h1, .template-bold h3 { color:#fff; }
 
 /* Footer */
 footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top:20px; }
-
-/* Font + Color selectors */
-.customization { display:flex; gap:10px; margin-bottom:10px; }
-.customization select, .customization input { flex:1; }
 </style>
 </head>
 
 <body>
 
-<!-- Hero Section -->
+<!-- Hero -->
 <section class="hero">
-<h1>Create Your Professional Resume</h1>
-<p>Modern two-column layout with photo — Free & Premium Options</p>
+<h1>Designer-Grade Resume Builder</h1>
+<p>Colored sidebar, icons, professional accents — Free & Premium Options</p>
 <a href="#builder" class="cta">Start Building Now</a>
 </section>
 
@@ -79,20 +76,15 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <div class="section">
 <h2>Enter Your Details</h2>
 
-<select id="templateSelect">
-  <option value="classic">Classic (Free)</option>
-  <option value="modern">Modern Minimalist (Premium)</option>
-  <option value="bold">Bold Creative (Premium)</option>
-</select>
-
 <div class="customization">
+  <input type="color" id="sidebarColor" value="#2563eb" title="Sidebar Color">
+  <input type="color" id="iconColor" value="#fff" title="Icon Color">
   <select id="fontSelect">
     <option value="Arial, sans-serif">Arial</option>
     <option value="'Helvetica Neue', sans-serif">Helvetica Neue</option>
     <option value="'Times New Roman', serif">Times New Roman</option>
     <option value="'Roboto', sans-serif">Roboto</option>
   </select>
-  <input type="color" id="accentColor" value="#2563eb" title="Accent Color">
 </div>
 
 <input type="file" id="photo" accept="image/*">
@@ -103,7 +95,7 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <input type="text" id="linkedin" placeholder="LinkedIn / Portfolio URL">
 
 <textarea id="summary" placeholder="Professional Summary"></textarea>
-<textarea id="skills" placeholder="Skills (comma separated)"></textarea>
+<textarea id="skills" placeholder="Skills (one per line)"></textarea>
 <textarea id="experience" placeholder="Work Experience (Job | Company | Dates | Key Achievements)"></textarea>
 <textarea id="education" placeholder="Education (Degree | School | Year)"></textarea>
 <textarea id="certifications" placeholder="Certifications (Certification | Institution | Year)"></textarea>
@@ -116,27 +108,29 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <button class="upgrade" onclick="upgrade()">Remove Watermark & Unlock Premium</button>
 </div>
 
-<!-- Live Preview -->
+<!-- Preview -->
 <div class="section">
 <h2>Live Resume Preview</h2>
-<div id="resume" class="resume template-classic">
-<div class="resume-left">
-<img id="p-photo" src="" alt="Your Photo" style="display:none;">
+<div id="resume" class="resume">
 
+<div class="resume-sidebar">
+<img id="p-photo" src="" alt="Your Photo" style="display:none;">
 <h4>Contact</h4>
-<p id="p-contact">Email | Phone | LinkedIn</p>
+<ul id="p-contact">
+<li><i class="fas fa-envelope"></i> Email | Phone | LinkedIn</li>
+</ul>
 
 <h4>Skills</h4>
-<ul id="p-skills"><li>Your skills will appear here.</li></ul>
+<ul id="p-skills"><li><i class="fas fa-check"></i> Your skills here</li></ul>
 
 <h4>Languages</h4>
-<ul id="p-languages"><li>Your languages will appear here.</li></ul>
+<ul id="p-languages"><li><i class="fas fa-language"></i> Your languages</li></ul>
 
 <h4>Certifications</h4>
-<ul id="p-certifications"><li>Your certifications will appear here.</li></ul>
+<ul id="p-certifications"><li><i class="fas fa-certificate"></i> Your certifications</li></ul>
 </div>
 
-<div class="resume-right">
+<div class="resume-main">
 <h1 id="p-name">Your Name</h1>
 <h3 id="p-title">Job Title</h3>
 
@@ -158,6 +152,7 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <h4>References</h4>
 <ul id="p-references"><li>Your references will appear here.</li></ul>
 </div>
+
 </div>
 
 <div class="watermark" id="watermark">Created with Free Resume Builder</div>
@@ -168,10 +163,10 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <footer>© 2026 Resume Builder PH • Free & Premium Options • Privacy Policy / Terms</footer>
 
 <script>
-let isPremium = false;
+let isPremium=false;
 
 // Inputs
-const inputs = {
+const inputs={
 photo: document.getElementById("photo"),
 name: document.getElementById("name"),
 title: document.getElementById("title"),
@@ -190,111 +185,139 @@ references: document.getElementById("references")
 };
 
 // Preview Elements
-const pPhoto = document.getElementById("p-photo");
-const pName = document.getElementById("p-name");
-const pTitle = document.getElementById("p-title");
-const pContact = document.getElementById("p-contact");
-const pSummary = document.getElementById("p-summary");
-const pSkills = document.getElementById("p-skills");
-const pExperience = document.getElementById("p-experience");
-const pEducation = document.getElementById("p-education");
-const pCertifications = document.getElementById("p-certifications");
-const pProjects = document.getElementById("p-projects");
-const pAchievements = document.getElementById("p-achievements");
-const pLanguages = document.getElementById("p-languages");
-const pReferences = document.getElementById("p-references");
-const watermark = document.getElementById("watermark");
-const resumeDiv = document.getElementById("resume");
+const pPhoto=document.getElementById("p-photo");
+const pName=document.getElementById("p-name");
+const pTitle=document.getElementById("p-title");
+const pContact=document.getElementById("p-contact");
+const pSummary=document.getElementById("p-summary");
+const pSkills=document.getElementById("p-skills");
+const pExperience=document.getElementById("p-experience");
+const pEducation=document.getElementById("p-education");
+const pCertifications=document.getElementById("p-certifications");
+const pProjects=document.getElementById("p-projects");
+const pAchievements=document.getElementById("p-achievements");
+const pLanguages=document.getElementById("p-languages");
+const pReferences=document.getElementById("p-references");
+const resumeDiv=document.getElementById("resume");
+const sidebar=document.querySelector(".resume-sidebar");
+const sidebarColor=document.getElementById("sidebarColor");
+const iconColor=document.getElementById("iconColor");
+const fontSelect=document.getElementById("fontSelect");
+const watermark=document.getElementById("watermark");
 
-// Template & Customization
-const templateSelect = document.getElementById("templateSelect");
-const fontSelect = document.getElementById("fontSelect");
-const accentColor = document.getElementById("accentColor");
-
-// Live update
-Object.values(inputs).forEach(input => input.oninput = updatePreview);
-
-// Handle photo upload
-inputs.photo.addEventListener("change", function(){
-const file = this.files[0];
-if(file){
-const reader = new FileReader();
-reader.onload = function(e){
-pPhoto.src = e.target.result;
-pPhoto.style.display = "block";
-};
-reader.readAsDataURL(file);
-}else{
-pPhoto.src = "";
-pPhoto.style.display = "none";
+// Auto-size text function
+function autoSizeText(element, container, maxFont=32, minFont=14, padding=20){
+    let fontSize = maxFont;
+    element.style.fontSize = fontSize + "px";
+    const tempSpan=document.createElement("span");
+    tempSpan.style.visibility="hidden";
+    tempSpan.style.whiteSpace="nowrap";
+    tempSpan.style.fontFamily=element.style.fontFamily;
+    tempSpan.textContent=element.textContent;
+    document.body.appendChild(tempSpan);
+    const maxWidth=container.offsetWidth-padding;
+    while(tempSpan.offsetWidth > maxWidth && fontSize > minFont){
+        fontSize -= 1;
+        tempSpan.style.fontSize=fontSize+"px";
+    }
+    element.style.fontSize = fontSize + "px";
+    document.body.removeChild(tempSpan);
 }
-});
 
-templateSelect.onchange = () => {
-let selected = templateSelect.value;
-if(!isPremium && (selected==="modern" || selected==="bold")){
-alert("This template is premium! Please upgrade to unlock.");
-templateSelect.value="classic";
-selected="classic";
+// Auto-fit list content
+function autoFitList(ul, maxFont=14, minFont=10, maxHeight=null){
+    let fontSize=maxFont;
+    ul.style.fontSize = fontSize+"px";
+    if(!maxHeight) maxHeight = ul.parentElement.offsetHeight-20;
+    while(ul.scrollHeight>maxHeight && fontSize>minFont){
+        fontSize -= 0.5;
+        ul.style.fontSize=fontSize+"px";
+        ul.style.lineHeight=(fontSize*1.4)+"px";
+    }
 }
-resumeDiv.className = `resume template-${selected}`;
-updatePreview();
-};
 
-fontSelect.onchange = () => resumeDiv.style.fontFamily = fontSelect.value;
-accentColor.oninput = () => resumeDiv.querySelectorAll("h1, h3, h4").forEach(h => h.style.color = accentColor.value);
-
+// Update preview
 function updatePreview(){
-pName.textContent = inputs.name.value || "Your Name";
-pTitle.textContent = inputs.title.value || "Job Title";
+    // Name & Title
+    pName.textContent = inputs.name.value || "Your Name";
+    pTitle.textContent = inputs.title.value || "Job Title";
+    autoSizeText(pName, pName.parentElement, 32, 18);
+    autoSizeText(pTitle, pTitle.parentElement, 20, 14);
 
-// Contact
-let contact = [];
-if(inputs.email.value) contact.push(inputs.email.value);
-if(inputs.phone.value) contact.push(inputs.phone.value);
-if(inputs.linkedin.value) contact.push(inputs.linkedin.value);
-pContact.textContent = contact.join(" | ") || "Email | Phone | LinkedIn";
+    // Sidebar headings
+    document.querySelectorAll(".resume-sidebar h4").forEach(h=>{
+        autoSizeText(h, h.parentElement, 16, 12);
+    });
 
-// Summary
-pSummary.textContent = inputs.summary.value || "Your professional summary will appear here.";
+    // Contact
+    pContact.innerHTML="";
+    let contactItems=[];
+    if(inputs.email.value) contactItems.push(`<li><i class="fas fa-envelope"></i> ${inputs.email.value}</li>`);
+    if(inputs.phone.value) contactItems.push(`<li><i class="fas fa-phone"></i> ${inputs.phone.value}</li>`);
+    if(inputs.linkedin.value) contactItems.push(`<li><i class="fab fa-linkedin"></i> ${inputs.linkedin.value}</li>`);
+    pContact.innerHTML=contactItems.length>0?contactItems.join(''):`<li><i class="fas fa-envelope"></i> Email | Phone | LinkedIn</li>`;
 
-// Populate Lists
-function populateList(input, ul, placeholder){
-ul.innerHTML="";
-if(input.value){
-input.value.split("\n").forEach(item=>{
-if(item.trim()!==""){ let li=document.createElement("li"); li.textContent=item; ul.appendChild(li); }
+    // Summary
+    pSummary.textContent=inputs.summary.value||"Your professional summary will appear here.";
+
+    // Populate lists & auto-fit
+    function populateList(input,ul,icon,placeholder){
+        ul.innerHTML="";
+        if(input.value){
+            input.value.split("\n").forEach(item=>{
+                if(item.trim()!=="") ul.innerHTML+=`<li><i class="${icon}"></i> ${item}</li>`;
+            });
+        }else{
+            ul.innerHTML=`<li><i class="${icon}"></i> ${placeholder}</li>`;
+        }
+        autoFitList(ul,14,10);
+    }
+
+    populateList(inputs.skills,pSkills,"fas fa-check","Your skills will appear here.");
+    populateList(inputs.experience,pExperience,"fas fa-briefcase","Your work experience will appear here.");
+    populateList(inputs.education,pEducation,"fas fa-graduation-cap","Your education will appear here.");
+    populateList(inputs.certifications,pCertifications,"fas fa-certificate","Your certifications will appear here.");
+    populateList(inputs.projects,pProjects,"fas fa-folder-open","Your projects will appear here.");
+    populateList(inputs.achievements,pAchievements,"fas fa-award","Your achievements will appear here.");
+    populateList(inputs.languages,pLanguages,"fas fa-language","Your languages will appear here.");
+    populateList(inputs.references,pReferences,"fas fa-user","Your references will appear here.");
+}
+
+// Live input events
+Object.values(inputs).forEach(input=>input.oninput=updatePreview);
+sidebarColor.oninput=()=>sidebar.style.background=sidebarColor.value;
+iconColor.oninput=()=>document.querySelectorAll(".resume-sidebar li i").forEach(i=>i.style.color=iconColor.value);
+fontSelect.onchange=()=>resumeDiv.style.fontFamily=fontSelect.value;
+
+// Photo preview
+inputs.photo.addEventListener("change",function(){
+    const file=this.files[0];
+    if(file){
+        const reader=new FileReader();
+        reader.onload=function(e){
+            pPhoto.src=e.target.result;
+            pPhoto.style.display="block";
+        };
+        reader.readAsDataURL(file);
+    } else {
+        pPhoto.src="";
+        pPhoto.style.display="none";
+    }
 });
-}else{ let li=document.createElement("li"); li.textContent=placeholder; ul.appendChild(li); }
-}
-
-populateList(inputs.skills, pSkills, "Your skills will appear here.");
-populateList(inputs.experience, pExperience, "Your work experience will appear here.");
-populateList(inputs.education, pEducation, "Your education will appear here.");
-populateList(inputs.certifications, pCertifications, "Your certifications will appear here.");
-populateList(inputs.projects, pProjects, "Your projects will appear here.");
-populateList(inputs.achievements, pAchievements, "Your achievements will appear here.");
-populateList(inputs.languages, pLanguages, "Your languages will appear here.");
-populateList(inputs.references, pReferences, "Your references will appear here.");
-
-// Apply font & accent color
-resumeDiv.querySelectorAll("h1, h3, h4").forEach(h => h.style.color = accentColor.value);
-resumeDiv.style.fontFamily = fontSelect.value;
-}
 
 // PDF download
 function downloadPDF(){
-watermark.style.display = isPremium ? "none" : "block";
-html2pdf().from(resumeDiv).save("resume.pdf");
+    watermark.style.display=isPremium?"none":"block";
+    html2pdf().from(resumeDiv).set({margin:0.2,filename:"resume.pdf",html2canvas:{scale:2},jsPDF:{unit:'in',format:'letter',orientation:'portrait'}}).save();
 }
 
 // Upgrade
 function upgrade(){
-alert("Payment successful! Premium templates unlocked.");
-isPremium=true;
-watermark.style.display="none";
+    alert("Premium unlocked!");
+    isPremium=true;
+    watermark.style.display="none";
 }
 </script>
 
 </body>
-</html>
+  </html>
