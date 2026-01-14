@@ -4,26 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Designer-Grade Resume Builder PH</title>
-
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
 <!-- PDF & Icons -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-
 <style>
 * { box-sizing:border-box; margin:0; padding:0; font-family: 'Arial', sans-serif; }
 body { background:#f3f4f6; }
 a { text-decoration:none; }
-
 .hero { background:#2563eb; color:#fff; text-align:center; padding:60px 20px; }
 .hero h1 { font-size:36px; margin-bottom:10px; }
 .hero p { font-size:18px; margin-bottom:20px; }
 .hero a.cta { display:inline-block; background:#fff; color:#2563eb; padding:15px 30px; border-radius:8px; font-weight:bold; }
-
 main { display:flex; flex-wrap:wrap; gap:20px; padding:20px; justify-content:center; }
 .section { background:#fff; padding:20px; border-radius:8px; flex:1; min-width:300px; max-width:480px; }
 h2 { margin-top:0; color:#2563eb; border-bottom:2px solid #2563eb; padding-bottom:2px; }
@@ -32,7 +27,6 @@ textarea { resize:vertical; }
 button { width:100%; padding:12px; margin-top:10px; border:none; border-radius:5px; cursor:pointer; background:#2563eb; color:#fff; font-weight:bold; }
 button.upgrade { background:#16a34a; }
 button:hover { opacity:0.9; }
-
 .customization { display:flex; gap:10px; margin-bottom:10px; }
 .customization select, .customization input { flex:1; }
 
@@ -40,32 +34,26 @@ button:hover { opacity:0.9; }
 .resume { width:100%; max-width:800px; display:flex; box-shadow:0 4px 15px rgba(0,0,0,0.12); border-radius:10px; overflow:hidden; margin-bottom:10px; font-family:Arial,sans-serif; }
 .resume-sidebar { flex:1; padding:30px 20px; display:flex; flex-direction:column; align-items:center; transition: background 0.3s, color 0.3s; }
 .resume-main { flex:2; padding:30px 25px; position:relative; }
-
-#p-photo { width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid #fff; margin-bottom:20px; }
-
+#p-photo { width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid #fff; margin-bottom:20px; display:none; }
 .resume-sidebar h4 { margin-top:20px; border-bottom:1px solid rgba(255,255,255,0.5); padding-bottom:5px; width:100%; font-size:16px; text-align:left; }
 .resume-sidebar ul { list-style:none; padding-left:0; width:100%; }
 .resume-sidebar li { margin:8px 0; display:flex; align-items:center; gap:10px; font-size:14px; }
 .resume-sidebar li i { width:18px; transition: color 0.3s; }
-
 .resume-main h1 { font-size:32px; color:#111; margin-bottom:5px; }
 .resume-main h3 { font-size:20px; color:#333; margin-top:0; margin-bottom:15px; }
 .resume-main h4 { margin-bottom:5px; border-bottom:2px solid #2563eb; padding-bottom:4px; font-size:16px; margin-top:15px; }
 .resume-main p { margin-bottom:10px; line-height:1.5; color:#555; }
 .resume-main ul { padding-left:20px; margin:5px 0; }
 .resume-main li { margin-bottom:5px; color:#555; }
-
 .watermark { text-align:center; font-size:12px; opacity:0.5; margin-top:10px; }
 
 /* Templates */
 .template-classic .resume-sidebar { background:#2563eb; color:#fff; }
 .template-classic .resume-sidebar li i { color:#fff; }
 .template-classic .resume-main h4 { color:#2563eb; }
-
 .template-modern .resume-sidebar { background:#fefefe; color:#2563eb; border-right:2px solid #2563eb; }
 .template-modern .resume-sidebar li i { color:#2563eb; }
 .template-modern .resume-main h4 { color:#2563eb; }
-
 .template-bold .resume-sidebar { background:#111; color:#fefefe; }
 .template-bold .resume-sidebar li i { color:#fbbf24; }
 .template-bold .resume-main h4 { color:#fbbf24; }
@@ -75,7 +63,6 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 </head>
 <body>
 
-<!-- Hero -->
 <section class="hero">
 <h1>Designer-Grade Resume Builder</h1>
 <p>Login to save your resumes & use premium features.</p>
@@ -84,7 +71,6 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 
 <main id="builder">
 
-<!-- Auth -->
 <div class="section" id="auth-section">
 <h2>User Authentication</h2>
 <input type="email" id="login-email" placeholder="Email">
@@ -94,7 +80,6 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <button onclick="logout()" style="display:none;" id="logoutBtn">Logout</button>
 </div>
 
-<!-- FORM -->
 <div class="section">
 <h2>Enter Your Details</h2>
 
@@ -137,13 +122,12 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <button class="upgrade" onclick="upgrade()">Remove Watermark & Unlock Premium</button>
 </div>
 
-<!-- Preview -->
 <div class="section">
 <h2>Live Resume Preview</h2>
 <div id="resume" class="resume template-classic">
 
 <div class="resume-sidebar">
-<img id="p-photo" src="" alt="Your Photo" style="display:none;">
+<img id="p-photo" src="" alt="Your Photo">
 <h4 id="sidebar-contact">Contact</h4>
 <ul id="p-contact"></ul>
 
@@ -183,27 +167,18 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 
 <div class="watermark" id="watermark">Created with Free Resume Builder</div>
 </div>
-
 </main>
+
 <footer>© 2026 Resume Builder PH • Free & Premium Options • Privacy Policy / Terms</footer>
 
 <script>
 // Firebase setup
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
-};
+const firebaseConfig = { apiKey:"YOUR_API_KEY", authDomain:"YOUR_PROJECT_ID.firebaseapp.com", projectId:"YOUR_PROJECT_ID", storageBucket:"YOUR_PROJECT_ID.appspot.com", messagingSenderId:"SENDER_ID", appId:"APP_ID" };
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
+const auth=firebase.auth(), db=firebase.firestore();
 let isPremium=false;
 
-// Inputs
+// Inputs & Preview
 const inputs={
 photo: document.getElementById("photo"),
 name: document.getElementById("name"),
@@ -221,127 +196,61 @@ achievements: document.getElementById("achievements"),
 languages: document.getElementById("languages"),
 references: document.getElementById("references")
 };
+const pPhoto=document.getElementById("p-photo"), pName=document.getElementById("p-name"), pTitle=document.getElementById("p-title");
+const pContact=document.getElementById("p-contact"), pSummary=document.getElementById("p-summary"), pSkills=document.getElementById("p-skills");
+const pExperience=document.getElementById("p-experience"), pEducation=document.getElementById("p-education"), pCertifications=document.getElementById("p-certifications");
+const pProjects=document.getElementById("p-projects"), pAchievements=document.getElementById("p-achievements"), pLanguages=document.getElementById("p-languages");
+const pReferences=document.getElementById("p-references"), resumeDiv=document.getElementById("resume"), sidebar=document.querySelector(".resume-sidebar");
+const sidebarColor=document.getElementById("sidebarColor"), iconColor=document.getElementById("iconColor"), fontSelect=document.getElementById("fontSelect");
+const templateSelect=document.getElementById("templateSelect"), watermark=document.getElementById("watermark");
 
-// Preview Elements
-const pPhoto=document.getElementById("p-photo");
-const pName=document.getElementById("p-name");
-const pTitle=document.getElementById("p-title");
-const pContact=document.getElementById("p-contact");
-const pSummary=document.getElementById("p-summary");
-const pSkills=document.getElementById("p-skills");
-const pExperience=document.getElementById("p-experience");
-const pEducation=document.getElementById("p-education");
-const pCertifications=document.getElementById("p-certifications");
-const pProjects=document.getElementById("p-projects");
-const pAchievements=document.getElementById("p-achievements");
-const pLanguages=document.getElementById("p-languages");
-const pReferences=document.getElementById("p-references");
+// Auto-resize name/title
+function autoSizeText(el,container,maxF=32,minF=18){let f=maxF; el.style.fontSize=f+"px"; const temp=document.createElement("span"); temp.style.visibility="hidden"; temp.style.whiteSpace="nowrap"; temp.style.fontFamily=el.style.fontFamily; temp.textContent=el.textContent; document.body.appendChild(temp); const maxW=container.offsetWidth-20; while(temp.offsetWidth>maxW && f>minF){f--; temp.style.fontSize=f+"px";} el.style.fontSize=f+"px"; document.body.removeChild(temp);}
+function autoFitList(ul,maxF=14,minF=10){let f=maxF; ul.style.fontSize=f+"px"; while(ul.scrollHeight>ul.parentElement.offsetHeight-20 && f>minF){f-=0.5; ul.style.fontSize=f+"px"; ul.style.lineHeight=(f*1.4)+"px";}}
 
-const resumeDiv=document.getElementById("resume");
-const sidebar=document.querySelector(".resume-sidebar");
-const sidebarColor=document.getElementById("sidebarColor");
-const iconColor=document.getElementById("iconColor");
-const fontSelect=document.getElementById("fontSelect");
-const templateSelect=document.getElementById("templateSelect");
-const watermark=document.getElementById("watermark");
-
-// Auto-size functions
-function autoSizeText(element, container, maxFont=32, minFont=14){
-    let fontSize=maxFont; element.style.fontSize=fontSize+"px";
-    const tempSpan=document.createElement("span");
-    tempSpan.style.visibility="hidden"; tempSpan.style.whiteSpace="nowrap"; tempSpan.style.fontFamily=element.style.fontFamily; tempSpan.textContent=element.textContent;
-    document.body.appendChild(tempSpan);
-    const maxWidth=container.offsetWidth-20;
-    while(tempSpan.offsetWidth>maxWidth && fontSize>minFont){ fontSize-=1; tempSpan.style.fontSize=fontSize+"px"; }
-    element.style.fontSize=fontSize+"px"; document.body.removeChild(tempSpan);
-}
-
-function autoFitList(ul, maxFont=14, minFont=10){
-    let fontSize=maxFont; ul.style.fontSize=fontSize+"px";
-    while(ul.scrollHeight>ul.parentElement.offsetHeight-20 && fontSize>minFont){
-        fontSize-=0.5; ul.style.fontSize=fontSize+"px"; ul.style.lineHeight=(fontSize*1.4)+"px";
-    }
-}
-
-// Update preview
+// Update Preview
 function updatePreview(){
-    // Name & title
-    pName.textContent=inputs.name.value||"";
-    pTitle.textContent=inputs.title.value||"";
-    autoSizeText(pName,pName.parentElement,32,18);
-    autoSizeText(pTitle,pTitle.parentElement,20,14);
-
-    // Photo
-    if(inputs.photo.files[0]){
-        const reader=new FileReader();
-        reader.onload=e=>{ pPhoto.src=e.target.result; pPhoto.style.display="block"; };
-        reader.readAsDataURL(inputs.photo.files[0]);
-    }else pPhoto.style.display="none";
-
-    // Contact
-    const contactItems=[];
-    if(inputs.email.value) contactItems.push(`<li><i class="fas fa-envelope"></i> ${inputs.email.value}</li>`);
+    pName.textContent=inputs.name.value||""; pTitle.textContent=inputs.title.value||"";
+    autoSizeText(pName,pName.parentElement); autoSizeText(pTitle,pTitle.parentElement,20,14);
+    if(inputs.photo.files[0]){ const reader=new FileReader(); reader.onload=e=>{ pPhoto.src=e.target.result; pPhoto.style.display="block"; }; reader.readAsDataURL(inputs.photo.files[0]); }else pPhoto.style.display="none";
+    const contactItems=[]; if(inputs.email.value) contactItems.push(`<li><i class="fas fa-envelope"></i> ${inputs.email.value}</li>`);
     if(inputs.phone.value) contactItems.push(`<li><i class="fas fa-phone"></i> ${inputs.phone.value}</li>`);
-    if(inputs.linkedin.value) contactItems.push(`<li><i class="fab fa-linkedin"></i> ${inputs.linkedin.value}</li>`);
-    pContact.innerHTML=contactItems.join('');
+    if(inputs.linkedin.value) contactItems.push(`<li><i class="fab fa-linkedin"></i> ${inputs.linkedin.value}</li>`); pContact.innerHTML=contactItems.join('');
     document.getElementById("sidebar-contact").style.display=contactItems.length?"block":"none";
-
-    // Summary
-    pSummary.textContent=inputs.summary.value.trim()||"";
-    document.getElementById("main-summary").style.display=inputs.summary.value.trim()?"block":"none";
-
-    // Helper for other sections
-    function populateSection(input, ul, headingId, icon){
-        ul.innerHTML="";
-        if(input.value.trim()){
-            input.value.split("\n").forEach(item=>{ if(item.trim()!=="") ul.innerHTML+=`<li><i class="${icon}"></i> ${item}</li>`; });
-            document.getElementById(headingId).style.display="block";
-        }else document.getElementById(headingId).style.display="none";
-        autoFitList(ul,14,10);
-    }
-
-    populateSection(inputs.skills,pSkills,"sidebar-skills","fas fa-check");
-    populateSection(inputs.experience,pExperience,"main-experience","fas fa-briefcase");
-    populateSection(inputs.education,pEducation,"main-education","fas fa-graduation-cap");
-    populateSection(inputs.certifications,pCertifications,"sidebar-certifications","fas fa-certificate");
-    populateSection(inputs.projects,pProjects,"main-projects","fas fa-folder-open");
-    populateSection(inputs.achievements,pAchievements,"main-achievements","fas fa-award");
-    populateSection(inputs.languages,pLanguages,"sidebar-languages","fas fa-language");
-    populateSection(inputs.references,pReferences,"main-references","fas fa-user");
+    pSummary.textContent=inputs.summary.value.trim()||""; document.getElementById("main-summary").style.display=inputs.summary.value.trim()?"block":"none";
+    function populate(input,ul,headId,icon){ul.innerHTML=""; if(input.value.trim()){input.value.split("\n").forEach(i=>{ if(i.trim()!=="") ul.innerHTML+=`<li><i class="${icon}"></i> ${i}</li>`; }); document.getElementById(headId).style.display="block";}else document.getElementById(headId).style.display="none"; autoFitList(ul);}
+    populate(inputs.skills,pSkills,"sidebar-skills","fas fa-check");
+    populate(inputs.experience,pExperience,"main-experience","fas fa-briefcase");
+    populate(inputs.education,pEducation,"main-education","fas fa-graduation-cap");
+    populate(inputs.certifications,pCertifications,"sidebar-certifications","fas fa-certificate");
+    populate(inputs.projects,pProjects,"main-projects","fas fa-folder-open");
+    populate(inputs.achievements,pAchievements,"main-achievements","fas fa-award");
+    populate(inputs.languages,pLanguages,"sidebar-languages","fas fa-language");
+    populate(inputs.references,pReferences,"main-references","fas fa-user");
 }
 
 // Event listeners
-Object.values(inputs).forEach(input=>input.oninput=updatePreview);
-sidebarColor.oninput=()=>sidebar.style.background=sidebarColor.value;
-iconColor.oninput=()=>document.querySelectorAll(".resume-sidebar li i").forEach(i=>i.style.color=iconColor.value);
-fontSelect.onchange=()=>resumeDiv.style.fontFamily=fontSelect.value;
-inputs.photo.addEventListener("change",updatePreview);
+Object.values(inputs).forEach(i=>i.addEventListener('input',updatePreview));
+inputs.photo.addEventListener('change',updatePreview);
+sidebarColor.addEventListener('input',()=>sidebar.style.background=sidebarColor.value);
+iconColor.addEventListener('input',()=>document.querySelectorAll(".resume-sidebar li i").forEach(i=>i.style.color=iconColor.value));
+fontSelect.addEventListener('change',()=>resumeDiv.style.fontFamily=fontSelect.value);
+templateSelect.addEventListener('change',()=>{ let s=templateSelect.value; if(!isPremium && (s==="modern"||s==="bold")){alert("Premium template!"); templateSelect.value="classic"; s="classic";} resumeDiv.classList.remove("template-classic","template-modern","template-bold"); resumeDiv.classList.add(`template-${s}`); updatePreview(); });
 
-// Template switching
-templateSelect.onchange = () => {
-    let selected = templateSelect.value;
-    if(!isPremium && (selected === "modern" || selected === "bold")) {
-        alert("This template is premium! Please upgrade to unlock.");
-        templateSelect.value = "classic";
-        selected = "classic";
-    }
-    resumeDiv.classList.remove("template-classic","template-modern","template-bold");
-    resumeDiv.classList.add(`template-${selected}`);
-    updatePreview();
-};
+window.addEventListener('DOMContentLoaded',updatePreview);
 
 // PDF & Premium
-function downloadPDF(){ watermark.style.display=isPremium?"none":"block"; html2pdf().from(resumeDiv).set({margin:0.2,filename:"resume.pdf",html2canvas:{scale:2},jsPDF:{unit:'in',format:'letter',orientation:'portrait'}}).save(); }
-function upgrade(){ alert("Premium unlocked!"); isPremium=true; watermark.style.display="none"; }
+function downloadPDF(){ watermark.style.display=isPremium?"none":"block"; html2pdf().from(resumeDiv).set({margin:0.2,filename:"resume.pdf",html2canvas:{scale:2},jsPDF:{unit:'in',format:'letter',orientation:'portrait'}}).save();}
+function upgrade(){alert("Premium unlocked!"); isPremium=true; watermark.style.display="none";}
 
 // Firebase Auth
-function signup(){ const email=document.getElementById("login-email").value; const password=document.getElementById("login-password").value;
-auth.createUserWithEmailAndPassword(email,password).then(()=>{ alert("Account created!"); showLogout(); }).catch(err=>alert(err.message)); }
-function login(){ const email=document.getElementById("login-email").value; const password=document.getElementById("login-password").value;
-auth.signInWithEmailAndPassword(email,password).then(userCred=>{ alert("Logged in!"); showLogout(); loadResume(userCred.user.uid); }).catch(err=>alert(err.message)); }
-function logout(){ auth.signOut().then(()=>{ alert("Logged out!"); document.getElementById("logoutBtn").style.display="none"; }); }
-function showLogout(){ document.getElementById("logoutBtn").style.display="inline-block"; }
+function signup(){ const email=document.getElementById("login-email").value; const pw=document.getElementById("login-password").value; auth.createUserWithEmailAndPassword(email,pw).then(()=>alert("Account created!")).catch(err=>alert(err.message));}
+function login(){ const email=document.getElementById("login-email").value; const pw=document.getElementById("login-password").value; auth.signInWithEmailAndPassword(email,pw).then(u=>{alert("Logged in!");}).catch(err=>alert(err.message));}
+function logout(){ auth.signOut().then(()=>alert("Logged out!"));}
 
-// Save/load resume
-function saveResume(){ const user=auth.currentUser; if(!user){ alert("Login first!"); return; }
-const data={}; Object.keys(inputs).forEach(k
+// Save resume to Firestore
+function saveResume(){ const user=auth.currentUser; if(!user){ alert("Login first!"); return;}
+const data={}; Object.keys(inputs).forEach(k=>{ if(inputs[k].value!==undefined) data[k]=inputs[k].value; }); db.collection("resumes").doc(user.uid).set(data).then(()=>alert("Resume saved!")).catch(err=>alert(err.message)); }
+</script>
+</body>
+</html>
