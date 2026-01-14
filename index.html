@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free Online Resume Builder Philippines</title>
+<meta name="description" content="Create a professional resume online for free. Best for students, fresh graduates, and job seekers in the Philippines.">
+
+<!-- PDF Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f3f4f6;
+}
+
+header {
+  background: #2563eb;
+  color: #fff;
+  padding: 24px;
+  text-align: center;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 300px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.upgrade {
+  background: #16a34a;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+#resume {
+  border: 1px solid #ddd;
+  padding: 25px;
+}
+
+#resume h1 {
+  margin-bottom: 5px;
+}
+
+#resume h3 {
+  margin-top: 0;
+  color: #2563eb;
+}
+
+#resume h4 {
+  margin-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+}
+
+#watermark {
+  margin-top: 30px;
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 14px;
+  color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Online Resume Builder</h1>
+  <p>Create your resume in minutes — Free for PH job seekers</p>
+</header>
+
+<main>
+
+  <!-- FORM -->
+  <div class="section">
+    <h2>Resume Information</h2>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="text" id="title" placeholder="Job Title">
+
+    <textarea id="summary" placeholder="Professional Summary"></textarea>
+    <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
+    <textarea id="experience" placeholder="Work Experience"></textarea>
+    <textarea id="education" placeholder="Education"></textarea>
+
+    <button onclick="downloadPDF()">Download Resume (Free)</button>
+    <button class="upgrade" onclick="upgrade()">Remove Watermark – ₱199</button>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="section">
+    <h2>Live Preview</h2>
+
+    <div id="resume">
+      <h1 id="p-name">Your Name</h1>
+      <h3 id="p-title">Job Title</h3>
+
+      <h4>Summary</h4>
+      <p id="p-summary">Your professional summary will appear here.</p>
+
+      <h4>Skills</h4>
+      <p id="p-skills">Your skills</p>
+
+      <h4>Experience</h4>
+      <p id="p-experience">Your experience</p>
+
+      <h4>Education</h4>
+      <p id="p-education">Your education</p>
+
+      <div id="watermark">Created with Free Resume Builder</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  © 2026 Resume Builder PH • Free & Premium Options Available
+</footer>
+
+<script>
+let isPremium = false;
+
+// Inputs
+const nameInput = document.getElementById("name");
+const titleInput = document.getElementById("title");
+const summaryInput = document.getElementById("summary");
+const skillsInput = document.getElementById("skills");
+const experienceInput = document.getElementById("experience");
+const educationInput = document.getElementById("education");
+
+// Preview
+const pName = document.getElementById("p-name");
+const pTitle = document.getElementById("p-title");
+const pSummary = document.getElementById("p-summary");
+const pSkills = document.getElementById("p-skills");
+const pExperience = document.getElementById("p-experience");
+const pEducation = document.getElementById("p-education");
+const watermark = document.getElementById("watermark");
+
+// Live update
+nameInput.oninput = () => pName.textContent = nameInput.value || "Your Name";
+titleInput.oninput = () => pTitle.textContent = titleInput.value || "Job Title";
+summaryInput.oninput = () => pSummary.textContent = summaryInput.value;
+skillsInput.oninput = () => pSkills.textContent = skillsInput.value;
+experienceInput.oninput = () => pExperience.textContent = experienceInput.value;
+educationInput.oninput = () => pEducation.textContent = educationInput.value;
+
+// Download PDF
+function downloadPDF() {
+  watermark.style.display = isPremium ? "none" : "block";
+  html2pdf().from(document.getElementById("resume")).save("resume.pdf");
+}
+
+// Upgrade simulation
+function upgrade() {
+  alert("Payment successful! Watermark removed.");
+  isPremium = true;
+  watermark.style.display = "none";
+}
+</script>
+
+</body>
+</html>
