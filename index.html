@@ -2,60 +2,105 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+/>
 <title>Designer-Grade Resume Builder PH</title>
 
-<!-- Firebase (COMPAT – matches your code) -->
+<!-- Firebase (COMPAT) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<!-- PDF & Icons -->
+<!-- PDF + Icons -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 
 <style>
-/* ===== BASE ===== */
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 body{background:#f3f4f6}
 a{text-decoration:none}
-button{cursor:pointer}
 
-/* ===== HERO ===== */
-.hero{background:#2563eb;color:#fff;text-align:center;padding:60px 20px}
-.hero h1{font-size:36px}
+.hero{
+  background:#2563eb;color:#fff;text-align:center;padding:60px 20px
+}
+.hero h1{font-size:34px}
 .hero p{margin:10px 0 20px;font-size:18px}
-.hero .cta{background:#fff;color:#2563eb;padding:15px 30px;border-radius:8px;font-weight:bold}
+.hero .cta{
+  background:#fff;color:#2563eb;padding:14px 28px;
+  border-radius:8px;font-weight:bold;display:inline-block
+}
 
-/* ===== LAYOUT ===== */
-main{display:flex;flex-wrap:wrap;gap:20px;padding:20px;justify-content:center}
-.section{background:#fff;padding:20px;border-radius:8px;flex:1;min-width:300px;max-width:480px}
-h2{color:#2563eb;border-bottom:2px solid #2563eb;margin-bottom:10px}
+main{
+  display:flex;flex-wrap:wrap;gap:20px;
+  padding:20px;justify-content:center
+}
 
-/* ===== FORM ===== */
-input,textarea,select{width:100%;padding:10px;margin-bottom:10px;border:1px solid #ccc;border-radius:5px}
+.section{
+  background:#fff;padding:20px;border-radius:8px;
+  flex:1;min-width:300px;max-width:480px
+}
+
+h2{
+  color:#2563eb;border-bottom:2px solid #2563eb;
+  margin-bottom:12px
+}
+
+input,textarea,select,button{
+  width:100%;padding:12px;margin-bottom:10px;
+  border-radius:5px;font-size:16px
+}
+input,textarea,select{border:1px solid #ccc}
 textarea{resize:vertical}
-button{width:100%;padding:12px;border:none;border-radius:5px;background:#2563eb;color:#fff;font-weight:bold}
+
+button{
+  border:none;background:#2563eb;color:#fff;
+  font-weight:bold;cursor:pointer
+}
 button.upgrade{background:#16a34a}
 button:hover{opacity:.9}
 
-/* ===== RESUME ===== */
-.resume{display:flex;max-width:800px;width:100%;box-shadow:0 4px 15px rgba(0,0,0,.12);border-radius:10px;overflow:hidden}
-.resume-sidebar{flex:1;padding:30px 20px;text-align:center}
-.resume-main{flex:2;padding:30px}
-#p-photo{width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:15px;display:none}
+/* ===== Resume ===== */
+.resume{
+  display:flex;max-width:800px;width:100%;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+  border-radius:10px;overflow:hidden
+}
+.resume-sidebar{
+  flex:1;padding:25px;background:#2563eb;
+  color:#fff;text-align:center
+}
+.resume-main{flex:2;padding:25px}
+#p-photo{
+  width:110px;height:110px;border-radius:50%;
+  object-fit:cover;margin-bottom:15px;display:none
+}
 .resume-sidebar ul{list-style:none;padding:0;text-align:left}
 .resume-sidebar li{margin:6px 0;font-size:14px}
-.resume-main h1{font-size:32px}
-.resume-main h3{margin-bottom:15px;color:#444}
-.resume-main h4{margin-top:15px;border-bottom:2px solid #2563eb}
+.resume-main h1{font-size:30px}
+.resume-main h3{margin-bottom:10px;color:#444}
+.resume-main h4{
+  margin-top:15px;border-bottom:2px solid #2563eb
+}
 .resume-main ul{padding-left:18px}
+
 .watermark{text-align:center;font-size:12px;opacity:.5;margin-top:10px}
 
-/* ===== TEMPLATES ===== */
-.template-classic .resume-sidebar{background:#2563eb;color:#fff}
-.template-modern .resume-sidebar{background:#fff;border-right:2px solid #2563eb;color:#2563eb}
-.template-bold .resume-sidebar{background:#111;color:#fbbf24}
+.template-modern .resume-sidebar{
+  background:#fff;color:#2563eb;border-right:2px solid #2563eb
+}
+.template-bold .resume-sidebar{
+  background:#111;color:#fbbf24
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+  main{flex-direction:column;padding:12px}
+  .section{max-width:100%}
+  .resume{flex-direction:column}
+  .resume-sidebar{text-align:center}
+}
 
 footer{text-align:center;padding:15px;font-size:14px;color:#555}
 </style>
@@ -65,14 +110,14 @@ footer{text-align:center;padding:15px;font-size:14px;color:#555}
 
 <section class="hero">
   <h1>Designer-Grade Resume Builder</h1>
-  <p>Login to save your resumes & unlock premium features</p>
+  <p>Login to save resumes & unlock premium features</p>
   <a href="#builder" class="cta">Start Building</a>
 </section>
 
 <main id="builder">
 
 <!-- AUTH -->
-<div class="section">
+<div class="section" id="auth-section">
 <h2>User Authentication</h2>
 <input type="email" id="login-email" placeholder="Email">
 <input type="password" id="login-password" placeholder="Password">
@@ -96,9 +141,9 @@ footer{text-align:center;padding:15px;font-size:14px;color:#555}
 <input id="title" placeholder="Job Title">
 <input id="email" placeholder="Email">
 <input id="phone" placeholder="Phone">
-<input id="linkedin" placeholder="LinkedIn">
+<input id="linkedin" placeholder="LinkedIn / Portfolio">
 
-<textarea id="summary" placeholder="Summary"></textarea>
+<textarea id="summary" placeholder="Professional Summary"></textarea>
 <textarea id="skills" placeholder="Skills (one per line)"></textarea>
 <textarea id="experience" placeholder="Experience"></textarea>
 <textarea id="education" placeholder="Education"></textarea>
@@ -132,7 +177,9 @@ footer{text-align:center;padding:15px;font-size:14px;color:#555}
   </div>
 </div>
 
-<div id="watermark" class="watermark">Created with Free Resume Builder</div>
+<div id="watermark" class="watermark">
+Created with Free Resume Builder
+</div>
 </div>
 
 </main>
@@ -140,87 +187,105 @@ footer{text-align:center;padding:15px;font-size:14px;color:#555}
 <footer>© 2026 Resume Builder PH</footer>
 
 <script>
-/* ===== FIREBASE CONFIG (FIXED) ===== */
-const firebaseConfig = {
-  apiKey: "AIzaSyDAPHPwW8vpsyhuOTv9bpI1dxvY69p9h8M",
-  authDomain: "resumeph-6e60c.firebaseapp.com",
-  projectId: "resumeph-6e60c",
-  storageBucket: "resumeph-6e60c.appspot.com",
-  messagingSenderId: "521284098870",
-  appId: "1:521284098870:web:7e07ec8dbdf222b20a7197"
+/* ===== FIREBASE ===== */
+const firebaseConfig={
+  apiKey:"AIzaSyDAPHPwW8vpsyhuOTv9bpI1dxvY69p9h8M",
+  authDomain:"resumeph-6e60c.firebaseapp.com",
+  projectId:"resumeph-6e60c",
+  storageBucket:"resumeph-6e60c.appspot.com",
+  messagingSenderId:"521284098870",
+  appId:"1:521284098870:web:7e07ec8dbdf222b20a7197"
 };
-
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+const auth=firebase.auth();
+const db=firebase.firestore();
 
-/* ===== STATE ===== */
-let isPremium = false;
+let isPremium=false;
 
 /* ===== PREVIEW ===== */
 function updatePreview(){
-  pName.textContent = name.value;
-  pTitle.textContent = title.value;
-  pSummary.textContent = summary.value;
+  pName.textContent=name.value;
+  pTitle.textContent=title.value;
+  pSummary.textContent=summary.value;
 
-  pSkills.innerHTML = skills.value.split("\n").filter(x=>x).map(s=>`<li>${s}</li>`).join("");
-  pExperience.innerHTML = experience.value.split("\n").filter(x=>x).map(e=>`<li>${e}</li>`).join("");
-  pEducation.innerHTML = education.value.split("\n").filter(x=>x).map(e=>`<li>${e}</li>`).join("");
+  pSkills.innerHTML=skills.value.split("\n").filter(Boolean).map(s=>`<li>${s}</li>`).join("");
+  pExperience.innerHTML=experience.value.split("\n").filter(Boolean).map(e=>`<li>${e}</li>`).join("");
+  pEducation.innerHTML=education.value.split("\n").filter(Boolean).map(e=>`<li>${e}</li>`).join("");
 
-  pContact.innerHTML = `
+  pContact.innerHTML=`
     ${email.value?`<li>${email.value}</li>`:""}
     ${phone.value?`<li>${phone.value}</li>`:""}
     ${linkedin.value?`<li>${linkedin.value}</li>`:""}
   `;
 }
 
-document.querySelectorAll("input,textarea").forEach(i=>i.addEventListener("input",updatePreview));
+document.querySelectorAll("input,textarea").forEach(i=>{
+  i.addEventListener("input",updatePreview);
+});
 
-photo.onchange = () => {
+photo.addEventListener("change",()=>{
+  if(!photo.files[0])return;
   const r=new FileReader();
-  r.onload=e=>{pPhoto.src=e.target.result;pPhoto.style.display="block"};
+  r.onload=e=>{
+    pPhoto.src=e.target.result;
+    pPhoto.style.display="block";
+  };
   r.readAsDataURL(photo.files[0]);
-};
+});
 
 /* ===== TEMPLATE ===== */
-templateSelect.onchange = () => {
+templateSelect.onchange=()=>{
   if(!isPremium && templateSelect.value!=="classic"){
     alert("Premium template");
     templateSelect.value="classic";
   }
-  resume.className = `resume template-${templateSelect.value}`;
+  resume.className=`resume template-${templateSelect.value}`;
 };
 
 /* ===== AUTH ===== */
 function signup(){
-  auth.createUserWithEmailAndPassword(loginEmail.value,loginPassword.value)
-    .then(()=>alert("Account created"))
-    .catch(e=>alert(e.message));
+  auth.createUserWithEmailAndPassword(
+    loginEmail.value,loginPassword.value
+  ).then(()=>alert("Account created"))
+   .catch(e=>alert(e.message));
 }
 
 function login(){
-  auth.signInWithEmailAndPassword(loginEmail.value,loginPassword.value)
-    .catch(e=>alert(e.message));
+  auth.signInWithEmailAndPassword(
+    loginEmail.value,loginPassword.value
+  ).catch(e=>alert(e.message));
 }
 
-function logout(){ auth.signOut(); }
+function logout(){auth.signOut();}
 
 auth.onAuthStateChanged(user=>{
-  logoutBtn.style.display = user?"block":"none";
+  logoutBtn.style.display=user?"block":"none";
 });
 
-/* ===== FIRESTORE ===== */
+/* ===== SAVE ===== */
 function saveResume(){
-  if(!auth.currentUser) return alert("Login first");
-  db.collection("resumes").doc(auth.currentUser.uid).set({
-    name:name.value,title:title.value,summary:summary.value
-  }).then(()=>alert("Saved"));
+  if(!auth.currentUser)return alert("Login first");
+  db.collection("resumes")
+    .doc(auth.currentUser.uid)
+    .collection("items")
+    .add({
+      name:name.value,
+      title:title.value,
+      summary:summary.value,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(()=>alert("Resume saved"));
 }
 
 /* ===== PDF ===== */
 function downloadPDF(){
   watermark.style.display=isPremium?"none":"block";
-  html2pdf().from(resume).save();
+  html2pdf().set({
+    margin:0.3,
+    filename:"resume.pdf",
+    html2canvas:{scale:2,scrollY:0},
+    jsPDF:{unit:"in",format:"letter",orientation:"portrait"}
+  }).from(resume).save();
 }
 
 /* ===== PREMIUM ===== */
