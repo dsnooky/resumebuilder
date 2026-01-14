@@ -36,8 +36,9 @@ button:hover { opacity:0.9; }
 .customization { display:flex; gap:10px; margin-bottom:10px; }
 .customization select, .customization input { flex:1; }
 
-.resume { width:100%; max-width:800px; background:#fff; display:flex; box-shadow:0 4px 15px rgba(0,0,0,0.12); border-radius:10px; overflow:hidden; margin-bottom:10px; }
-.resume-sidebar { background:#2563eb; color:#fff; flex:1; padding:30px 20px; display:flex; flex-direction:column; align-items:center; transition: background 0.3s; }
+/* Resume base */
+.resume { width:100%; max-width:800px; display:flex; box-shadow:0 4px 15px rgba(0,0,0,0.12); border-radius:10px; overflow:hidden; margin-bottom:10px; font-family:Arial,sans-serif; }
+.resume-sidebar { flex:1; padding:30px 20px; display:flex; flex-direction:column; align-items:center; transition: background 0.3s, color 0.3s; }
 .resume-main { flex:2; padding:30px 25px; position:relative; }
 
 #p-photo { width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid #fff; margin-bottom:20px; }
@@ -45,16 +46,29 @@ button:hover { opacity:0.9; }
 .resume-sidebar h4 { margin-top:20px; border-bottom:1px solid rgba(255,255,255,0.5); padding-bottom:5px; width:100%; font-size:16px; text-align:left; }
 .resume-sidebar ul { list-style:none; padding-left:0; width:100%; }
 .resume-sidebar li { margin:8px 0; display:flex; align-items:center; gap:10px; font-size:14px; }
-.resume-sidebar li i { width:18px; color:#fff; transition: color 0.3s; }
+.resume-sidebar li i { width:18px; transition: color 0.3s; }
 
 .resume-main h1 { font-size:32px; color:#111; margin-bottom:5px; }
 .resume-main h3 { font-size:20px; color:#333; margin-top:0; margin-bottom:15px; }
-.resume-main h4 { margin-bottom:5px; border-bottom:2px solid #2563eb; padding-bottom:4px; font-size:16px; margin-top:15px; color:#2563eb; }
+.resume-main h4 { margin-bottom:5px; border-bottom:2px solid #2563eb; padding-bottom:4px; font-size:16px; margin-top:15px; }
 .resume-main p { margin-bottom:10px; line-height:1.5; color:#555; }
 .resume-main ul { padding-left:20px; margin:5px 0; }
 .resume-main li { margin-bottom:5px; color:#555; }
 
 .watermark { text-align:center; font-size:12px; opacity:0.5; margin-top:10px; }
+
+/* Templates */
+.template-classic .resume-sidebar { background:#2563eb; color:#fff; }
+.template-classic .resume-sidebar li i { color:#fff; }
+.template-classic .resume-main h4 { color:#2563eb; }
+
+.template-modern .resume-sidebar { background:#fefefe; color:#2563eb; border-right:2px solid #2563eb; }
+.template-modern .resume-sidebar li i { color:#2563eb; }
+.template-modern .resume-main h4 { color:#2563eb; }
+
+.template-bold .resume-sidebar { background:#111; color:#fefefe; }
+.template-bold .resume-sidebar li i { color:#fbbf24; }
+.template-bold .resume-main h4 { color:#fbbf24; }
 
 footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top:20px; }
 </style>
@@ -83,6 +97,13 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <!-- FORM -->
 <div class="section">
 <h2>Enter Your Details</h2>
+
+<select id="templateSelect">
+  <option value="classic">Classic (Free)</option>
+  <option value="modern">Modern Minimalist (Premium)</option>
+  <option value="bold">Bold Creative (Premium)</option>
+</select>
+
 <div class="customization">
   <input type="color" id="sidebarColor" value="#2563eb" title="Sidebar Color">
   <input type="color" id="iconColor" value="#fff" title="Icon Color">
@@ -119,44 +140,44 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <!-- Preview -->
 <div class="section">
 <h2>Live Resume Preview</h2>
-<div id="resume" class="resume">
+<div id="resume" class="resume template-classic">
 
 <div class="resume-sidebar">
 <img id="p-photo" src="" alt="Your Photo" style="display:none;">
-<h4>Contact</h4>
-<ul id="p-contact"><li><i class="fas fa-envelope"></i> Email | Phone | LinkedIn</li></ul>
+<h4 id="sidebar-contact">Contact</h4>
+<ul id="p-contact"></ul>
 
-<h4>Skills</h4>
-<ul id="p-skills"><li><i class="fas fa-check"></i> Your skills here</li></ul>
+<h4 id="sidebar-skills">Skills</h4>
+<ul id="p-skills"></ul>
 
-<h4>Languages</h4>
-<ul id="p-languages"><li><i class="fas fa-language"></i> Your languages</li></ul>
+<h4 id="sidebar-languages">Languages</h4>
+<ul id="p-languages"></ul>
 
-<h4>Certifications</h4>
-<ul id="p-certifications"><li><i class="fas fa-certificate"></i> Your certifications</li></ul>
+<h4 id="sidebar-certifications">Certifications</h4>
+<ul id="p-certifications"></ul>
 </div>
 
 <div class="resume-main">
 <h1 id="p-name">Your Name</h1>
 <h3 id="p-title">Job Title</h3>
 
-<h4>Professional Summary</h4>
-<p id="p-summary">Your professional summary will appear here.</p>
+<h4 id="main-summary">Professional Summary</h4>
+<p id="p-summary"></p>
 
-<h4>Experience</h4>
-<ul id="p-experience"><li>Your work experience will appear here.</li></ul>
+<h4 id="main-experience">Experience</h4>
+<ul id="p-experience"></ul>
 
-<h4>Education</h4>
-<ul id="p-education"><li>Your education will appear here.</li></ul>
+<h4 id="main-education">Education</h4>
+<ul id="p-education"></ul>
 
-<h4>Projects</h4>
-<ul id="p-projects"><li>Your projects will appear here.</li></ul>
+<h4 id="main-projects">Projects</h4>
+<ul id="p-projects"></ul>
 
-<h4>Achievements / Awards</h4>
-<ul id="p-achievements"><li>Your achievements will appear here.</li></ul>
+<h4 id="main-achievements">Achievements / Awards</h4>
+<ul id="p-achievements"></ul>
 
-<h4>References</h4>
-<ul id="p-references"><li>Your references will appear here.</li></ul>
+<h4 id="main-references">References</h4>
+<ul id="p-references"></ul>
 </div>
 </div>
 
@@ -215,84 +236,101 @@ const pProjects=document.getElementById("p-projects");
 const pAchievements=document.getElementById("p-achievements");
 const pLanguages=document.getElementById("p-languages");
 const pReferences=document.getElementById("p-references");
+
 const resumeDiv=document.getElementById("resume");
 const sidebar=document.querySelector(".resume-sidebar");
 const sidebarColor=document.getElementById("sidebarColor");
 const iconColor=document.getElementById("iconColor");
 const fontSelect=document.getElementById("fontSelect");
+const templateSelect=document.getElementById("templateSelect");
 const watermark=document.getElementById("watermark");
 
-// Auto-size function
-function autoSizeText(element, container, maxFont=32, minFont=14, padding=20){
+// Auto-size functions
+function autoSizeText(element, container, maxFont=32, minFont=14){
     let fontSize=maxFont; element.style.fontSize=fontSize+"px";
     const tempSpan=document.createElement("span");
     tempSpan.style.visibility="hidden"; tempSpan.style.whiteSpace="nowrap"; tempSpan.style.fontFamily=element.style.fontFamily; tempSpan.textContent=element.textContent;
     document.body.appendChild(tempSpan);
-    const maxWidth=container.offsetWidth-padding;
+    const maxWidth=container.offsetWidth-20;
     while(tempSpan.offsetWidth>maxWidth && fontSize>minFont){ fontSize-=1; tempSpan.style.fontSize=fontSize+"px"; }
     element.style.fontSize=fontSize+"px"; document.body.removeChild(tempSpan);
 }
 
-// Auto-fit list
-function autoFitList(ul, maxFont=14, minFont=10, maxHeight=null){
+function autoFitList(ul, maxFont=14, minFont=10){
     let fontSize=maxFont; ul.style.fontSize=fontSize+"px";
-    if(!maxHeight) maxHeight=ul.parentElement.offsetHeight-20;
-    while(ul.scrollHeight>maxHeight && fontSize>minFont){
+    while(ul.scrollHeight>ul.parentElement.offsetHeight-20 && fontSize>minFont){
         fontSize-=0.5; ul.style.fontSize=fontSize+"px"; ul.style.lineHeight=(fontSize*1.4)+"px";
     }
 }
 
-// Populate preview
+// Update preview
 function updatePreview(){
-    pName.textContent=inputs.name.value||"Your Name";
-    pTitle.textContent=inputs.title.value||"Job Title";
+    // Name & title
+    pName.textContent=inputs.name.value||"";
+    pTitle.textContent=inputs.title.value||"";
     autoSizeText(pName,pName.parentElement,32,18);
     autoSizeText(pTitle,pTitle.parentElement,20,14);
-    document.querySelectorAll(".resume-sidebar h4").forEach(h=>autoSizeText(h,h.parentElement,16,12));
+
+    // Photo
+    if(inputs.photo.files[0]){
+        const reader=new FileReader();
+        reader.onload=e=>{ pPhoto.src=e.target.result; pPhoto.style.display="block"; };
+        reader.readAsDataURL(inputs.photo.files[0]);
+    }else pPhoto.style.display="none";
 
     // Contact
-    pContact.innerHTML=""; let contactItems=[];
+    const contactItems=[];
     if(inputs.email.value) contactItems.push(`<li><i class="fas fa-envelope"></i> ${inputs.email.value}</li>`);
     if(inputs.phone.value) contactItems.push(`<li><i class="fas fa-phone"></i> ${inputs.phone.value}</li>`);
     if(inputs.linkedin.value) contactItems.push(`<li><i class="fab fa-linkedin"></i> ${inputs.linkedin.value}</li>`);
-    pContact.innerHTML=contactItems.length>0?contactItems.join(''):`<li><i class="fas fa-envelope"></i> Email | Phone | LinkedIn</li>`;
+    pContact.innerHTML=contactItems.join('');
+    document.getElementById("sidebar-contact").style.display=contactItems.length?"block":"none";
 
-    pSummary.textContent=inputs.summary.value||"Your professional summary will appear here.";
+    // Summary
+    pSummary.textContent=inputs.summary.value.trim()||"";
+    document.getElementById("main-summary").style.display=inputs.summary.value.trim()?"block":"none";
 
-    function populateList(input,ul,icon,placeholder){
+    // Helper for other sections
+    function populateSection(input, ul, headingId, icon){
         ul.innerHTML="";
-        if(input.value){
-            input.value.split("\n").forEach(item=>{
-                if(item.trim()!=="") ul.innerHTML+=`<li><i class="${icon}"></i> ${item}</li>`;
-            });
-        } else ul.innerHTML=`<li><i class="${icon}"></i> ${placeholder}</li>`;
+        if(input.value.trim()){
+            input.value.split("\n").forEach(item=>{ if(item.trim()!=="") ul.innerHTML+=`<li><i class="${icon}"></i> ${item}</li>`; });
+            document.getElementById(headingId).style.display="block";
+        }else document.getElementById(headingId).style.display="none";
         autoFitList(ul,14,10);
     }
 
-    populateList(inputs.skills,pSkills,"fas fa-check","Your skills here");
-    populateList(inputs.experience,pExperience,"fas fa-briefcase","Your work experience here");
-    populateList(inputs.education,pEducation,"fas fa-graduation-cap","Your education here");
-    populateList(inputs.certifications,pCertifications,"fas fa-certificate","Your certifications here");
-    populateList(inputs.projects,pProjects,"fas fa-folder-open","Your projects here");
-    populateList(inputs.achievements,pAchievements,"fas fa-award","Your achievements here");
-    populateList(inputs.languages,pLanguages,"fas fa-language","Your languages here");
-    populateList(inputs.references,pReferences,"fas fa-user","Your references here");
+    populateSection(inputs.skills,pSkills,"sidebar-skills","fas fa-check");
+    populateSection(inputs.experience,pExperience,"main-experience","fas fa-briefcase");
+    populateSection(inputs.education,pEducation,"main-education","fas fa-graduation-cap");
+    populateSection(inputs.certifications,pCertifications,"sidebar-certifications","fas fa-certificate");
+    populateSection(inputs.projects,pProjects,"main-projects","fas fa-folder-open");
+    populateSection(inputs.achievements,pAchievements,"main-achievements","fas fa-award");
+    populateSection(inputs.languages,pLanguages,"sidebar-languages","fas fa-language");
+    populateSection(inputs.references,pReferences,"main-references","fas fa-user");
 }
 
-// Live inputs
+// Event listeners
 Object.values(inputs).forEach(input=>input.oninput=updatePreview);
 sidebarColor.oninput=()=>sidebar.style.background=sidebarColor.value;
 iconColor.oninput=()=>document.querySelectorAll(".resume-sidebar li i").forEach(i=>i.style.color=iconColor.value);
 fontSelect.onchange=()=>resumeDiv.style.fontFamily=fontSelect.value;
+inputs.photo.addEventListener("change",updatePreview);
 
-// Photo preview
-inputs.photo.addEventListener("change",function(){
-    const file=this.files[0];
-    if(file){ const reader=new FileReader(); reader.onload=e=>{ pPhoto.src=e.target.result; pPhoto.style.display="block"; }; reader.readAsDataURL(file); }
-    else { pPhoto.src=""; pPhoto.style.display="none"; }
-});
+// Template switching
+templateSelect.onchange = () => {
+    let selected = templateSelect.value;
+    if(!isPremium && (selected === "modern" || selected === "bold")) {
+        alert("This template is premium! Please upgrade to unlock.");
+        templateSelect.value = "classic";
+        selected = "classic";
+    }
+    resumeDiv.classList.remove("template-classic","template-modern","template-bold");
+    resumeDiv.classList.add(`template-${selected}`);
+    updatePreview();
+};
 
-// PDF
+// PDF & Premium
 function downloadPDF(){ watermark.style.display=isPremium?"none":"block"; html2pdf().from(resumeDiv).set({margin:0.2,filename:"resume.pdf",html2canvas:{scale:2},jsPDF:{unit:'in',format:'letter',orientation:'portrait'}}).save(); }
 function upgrade(){ alert("Premium unlocked!"); isPremium=true; watermark.style.display="none"; }
 
@@ -306,11 +344,4 @@ function showLogout(){ document.getElementById("logoutBtn").style.display="inlin
 
 // Save/load resume
 function saveResume(){ const user=auth.currentUser; if(!user){ alert("Login first!"); return; }
-const data={}; Object.keys(inputs).forEach(k=>{ data[k]=inputs[k].value||""; });
-db.collection("resumes").doc(user.uid).set(data).then(()=>alert("Resume saved!")).catch(err=>alert(err.message)); }
-
-function loadResume(uid){ db.collection("resumes").doc(uid).get().then(doc=>{ if(doc.exists){ const data=doc.data(); Object.keys(data).forEach(k=>{ if(inputs[k]) inputs[k].value=data[k]; }); updatePreview(); } }); }
-
-</script>
-</body>
-</html>
+const data={}; Object.keys(inputs).forEach(k
