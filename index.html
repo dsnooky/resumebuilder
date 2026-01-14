@@ -3,15 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resume Builder PH - Free & Premium Templates</title>
-<meta name="description" content="Create professional resumes online with customizable templates. Free & Premium options for students, graduates, and job seekers in the Philippines.">
-<meta name="keywords" content="resume builder, free resume, job resume, professional CV, Philippines">
-<meta property="og:title" content="Resume Builder PH">
-<meta property="og:description" content="Create professional resumes online. Free & Premium templates available.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://yourwebsite.com">
-<meta property="og:image" content="https://yourwebsite.com/social-image.png">
-<meta name="twitter:card" content="summary_large_image">
+<title>Professional Resume Builder PH</title>
+<meta name="description" content="Create professional resumes online with detailed templates. Free & Premium options for students, graduates, and job seekers in the Philippines.">
+<meta name="keywords" content="resume builder, free resume, professional CV, Philippines">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
@@ -37,11 +31,16 @@ button.upgrade { background:#16a34a; }
 button:hover { opacity:0.9; }
 
 /* Resume Templates */
-.resume { border:1px solid #ddd; padding:25px; background:#fff; margin-bottom:10px; }
-.resume h1 { margin-bottom:5px; }
-.resume h3 { margin-top:0; }
-.resume h4 { margin-bottom:5px; border-bottom:1px solid #ddd; padding-bottom:4px; }
+.resume { border:1px solid #ddd; padding:25px; background:#fff; margin-bottom:10px; display:flex; flex-direction:row; gap:20px; }
+.resume-left { flex:1; border-right:1px solid #ddd; padding-right:15px; }
+.resume-right { flex:2; padding-left:15px; }
+
+.resume h1 { margin-bottom:5px; font-size:28px; }
+.resume h3 { margin-top:0; font-size:20px; margin-bottom:10px; }
+.resume h4 { margin-bottom:5px; border-bottom:1px solid #ddd; padding-bottom:4px; font-size:16px; margin-top:15px; }
 .resume ul { padding-left:20px; margin:5px 0; }
+.resume li { margin-bottom:5px; }
+.resume p { margin-bottom:8px; line-height:1.4; }
 .watermark { text-align:center; font-size:12px; opacity:0.5; margin-top:40px; }
 
 /* Template Variations */
@@ -61,16 +60,16 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 
 <body>
 
-<!-- Landing Hero -->
+<!-- Hero Section -->
 <section class="hero">
-<h1>Create Your Resume in Minutes</h1>
-<p>Professional, clean, and customizable templates — Free & Premium Options</p>
+<h1>Create Your Professional Resume</h1>
+<p>Modern two-column layout for recruiters — Free & Premium Options</p>
 <a href="#builder" class="cta">Start Building Now</a>
 </section>
 
 <main id="builder">
 
-<!-- FORM & Controls -->
+<!-- FORM -->
 <div class="section">
 <h2>Enter Your Details</h2>
 
@@ -98,26 +97,42 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 
 <textarea id="summary" placeholder="Professional Summary"></textarea>
 <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
-<textarea id="experience" placeholder="Work Experience (one per line: Job | Company | Dates)"></textarea>
-<textarea id="education" placeholder="Education (one per line: Degree | School | Year)"></textarea>
+<textarea id="experience" placeholder="Work Experience (Job | Company | Dates | Key Achievements)"></textarea>
+<textarea id="education" placeholder="Education (Degree | School | Year)"></textarea>
+<textarea id="certifications" placeholder="Certifications (Certification | Institution | Year)"></textarea>
+<textarea id="projects" placeholder="Projects (Project | Role | Year | Description)"></textarea>
+<textarea id="achievements" placeholder="Achievements / Awards (Award | Institution | Year)"></textarea>
+<textarea id="languages" placeholder="Languages (Language | Proficiency)"></textarea>
+<textarea id="references" placeholder="References (Name | Position | Contact)"></textarea>
 
 <button onclick="downloadPDF()">Download Resume (Free)</button>
 <button class="upgrade" onclick="upgrade()">Remove Watermark & Unlock Premium</button>
 </div>
 
-<!-- Preview -->
+<!-- Live Preview -->
 <div class="section">
 <h2>Live Resume Preview</h2>
 <div id="resume" class="resume template-classic">
+<div class="resume-left">
+<h4>Contact</h4>
+<p id="p-contact">Email | Phone | LinkedIn</p>
+
+<h4>Skills</h4>
+<ul id="p-skills"><li>Your skills will appear here.</li></ul>
+
+<h4>Languages</h4>
+<ul id="p-languages"><li>Your languages will appear here.</li></ul>
+
+<h4>Certifications</h4>
+<ul id="p-certifications"><li>Your certifications will appear here.</li></ul>
+</div>
+
+<div class="resume-right">
 <h1 id="p-name">Your Name</h1>
 <h3 id="p-title">Job Title</h3>
-<p id="p-contact">Email | Phone | LinkedIn</p>
 
 <h4>Professional Summary</h4>
 <p id="p-summary">Your professional summary will appear here.</p>
-
-<h4>Skills</h4>
-<p id="p-skills">Your skills will appear here.</p>
 
 <h4>Experience</h4>
 <ul id="p-experience"><li>Your work experience will appear here.</li></ul>
@@ -125,9 +140,20 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <h4>Education</h4>
 <ul id="p-education"><li>Your education will appear here.</li></ul>
 
+<h4>Projects</h4>
+<ul id="p-projects"><li>Your projects will appear here.</li></ul>
+
+<h4>Achievements / Awards</h4>
+<ul id="p-achievements"><li>Your achievements will appear here.</li></ul>
+
+<h4>References</h4>
+<ul id="p-references"><li>Your references will appear here.</li></ul>
+
+</div>
 <div class="watermark" id="watermark">Created with Free Resume Builder</div>
 </div>
 </div>
+
 </main>
 
 <footer>© 2026 Resume Builder PH • Free & Premium Options • Privacy Policy / Terms</footer>
@@ -145,10 +171,15 @@ linkedin: document.getElementById("linkedin"),
 summary: document.getElementById("summary"),
 skills: document.getElementById("skills"),
 experience: document.getElementById("experience"),
-education: document.getElementById("education")
+education: document.getElementById("education"),
+certifications: document.getElementById("certifications"),
+projects: document.getElementById("projects"),
+achievements: document.getElementById("achievements"),
+languages: document.getElementById("languages"),
+references: document.getElementById("references")
 };
 
-// Preview
+// Preview Elements
 const pName = document.getElementById("p-name");
 const pTitle = document.getElementById("p-title");
 const pContact = document.getElementById("p-contact");
@@ -156,6 +187,11 @@ const pSummary = document.getElementById("p-summary");
 const pSkills = document.getElementById("p-skills");
 const pExperience = document.getElementById("p-experience");
 const pEducation = document.getElementById("p-education");
+const pCertifications = document.getElementById("p-certifications");
+const pProjects = document.getElementById("p-projects");
+const pAchievements = document.getElementById("p-achievements");
+const pLanguages = document.getElementById("p-languages");
+const pReferences = document.getElementById("p-references");
 const watermark = document.getElementById("watermark");
 const resumeDiv = document.getElementById("resume");
 
@@ -164,8 +200,9 @@ const templateSelect = document.getElementById("templateSelect");
 const fontSelect = document.getElementById("fontSelect");
 const accentColor = document.getElementById("accentColor");
 
-// Live update
+// Update preview on input
 Object.values(inputs).forEach(input => input.oninput = updatePreview);
+
 templateSelect.onchange = () => {
 let selected = templateSelect.value;
 if(!isPremium && (selected==="modern" || selected==="bold")){
@@ -178,39 +215,42 @@ updatePreview();
 };
 
 fontSelect.onchange = () => resumeDiv.style.fontFamily = fontSelect.value;
-accentColor.oninput = () => {
-resumeDiv.querySelectorAll("h2, h3, h4").forEach(h => h.style.color = accentColor.value);
-};
+accentColor.oninput = () => resumeDiv.querySelectorAll("h1, h3, h4").forEach(h => h.style.color = accentColor.value);
 
 function updatePreview(){
 pName.textContent = inputs.name.value || "Your Name";
 pTitle.textContent = inputs.title.value || "Job Title";
+
+// Contact
 let contact = [];
 if(inputs.email.value) contact.push(inputs.email.value);
 if(inputs.phone.value) contact.push(inputs.phone.value);
 if(inputs.linkedin.value) contact.push(inputs.linkedin.value);
 pContact.textContent = contact.join(" | ") || "Email | Phone | LinkedIn";
+
 pSummary.textContent = inputs.summary.value || "Your professional summary will appear here.";
-pSkills.textContent = inputs.skills.value || "Your skills will appear here.";
 
-// Experience
-pExperience.innerHTML="";
-if(inputs.experience.value){
-inputs.experience.value.split("\n").forEach(exp=>{
-if(exp.trim()!==""){ let li=document.createElement("li"); li.textContent=exp; pExperience.appendChild(li); }
+// Populate Lists
+function populateList(input, ul, placeholder){
+ul.innerHTML="";
+if(input.value){
+input.value.split("\n").forEach(item=>{
+if(item.trim()!==""){ let li=document.createElement("li"); li.textContent=item; ul.appendChild(li); }
 });
-}else{ let li=document.createElement("li"); li.textContent="Your work experience will appear here."; pExperience.appendChild(li); }
+}else{ let li=document.createElement("li"); li.textContent=placeholder; ul.appendChild(li); }
+}
 
-// Education
-pEducation.innerHTML="";
-if(inputs.education.value){
-inputs.education.value.split("\n").forEach(edu=>{
-if(edu.trim()!==""){ let li=document.createElement("li"); li.textContent=edu; pEducation.appendChild(li); }
-});
-}else{ let li=document.createElement("li"); li.textContent="Your education will appear here."; pEducation.appendChild(li); }
+populateList(inputs.skills, pSkills, "Your skills will appear here.");
+populateList(inputs.experience, pExperience, "Your work experience will appear here.");
+populateList(inputs.education, pEducation, "Your education will appear here.");
+populateList(inputs.certifications, pCertifications, "Your certifications will appear here.");
+populateList(inputs.projects, pProjects, "Your projects will appear here.");
+populateList(inputs.achievements, pAchievements, "Your achievements will appear here.");
+populateList(inputs.languages, pLanguages, "Your languages will appear here.");
+populateList(inputs.references, pReferences, "Your references will appear here.");
 
-// Apply current accent color & font
-resumeDiv.querySelectorAll("h2, h3, h4").forEach(h => h.style.color = accentColor.value);
+// Apply font & accent
+resumeDiv.querySelectorAll("h1, h3, h4").forEach(h => h.style.color = accentColor.value);
 resumeDiv.style.fontFamily = fontSelect.value;
 }
 
