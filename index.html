@@ -32,16 +32,22 @@ button:hover { opacity:0.9; }
 
 /* Resume Templates */
 .resume { border:1px solid #ddd; padding:25px; background:#fff; margin-bottom:10px; display:flex; flex-direction:row; gap:20px; }
-.resume-left { flex:1; border-right:1px solid #ddd; padding-right:15px; }
+.resume-left { flex:1; border-right:1px solid #ddd; padding-right:15px; display:flex; flex-direction:column; align-items:center; }
 .resume-right { flex:2; padding-left:15px; }
 
-.resume h1 { margin-bottom:5px; font-size:28px; }
+/* Photo Section */
+#p-photo { width:120px; height:120px; border-radius:50%; object-fit:cover; border:2px solid #ccc; margin-bottom:15px; }
+
+/* Resume Text */
+.resume h1 { margin-bottom:5px; font-size:28px; text-align:left; }
 .resume h3 { margin-top:0; font-size:20px; margin-bottom:10px; }
 .resume h4 { margin-bottom:5px; border-bottom:1px solid #ddd; padding-bottom:4px; font-size:16px; margin-top:15px; }
 .resume ul { padding-left:20px; margin:5px 0; }
 .resume li { margin-bottom:5px; }
 .resume p { margin-bottom:8px; line-height:1.4; }
-.watermark { text-align:center; font-size:12px; opacity:0.5; margin-top:40px; }
+
+/* Watermark Below Resume */
+.watermark { text-align:center; font-size:12px; opacity:0.5; margin-top:10px; }
 
 /* Template Variations */
 .template-classic { color:#2563eb; font-family:Arial, sans-serif; }
@@ -63,7 +69,7 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <!-- Hero Section -->
 <section class="hero">
 <h1>Create Your Professional Resume</h1>
-<p>Modern two-column layout for recruiters — Free & Premium Options</p>
+<p>Modern two-column layout with photo — Free & Premium Options</p>
 <a href="#builder" class="cta">Start Building Now</a>
 </section>
 
@@ -89,6 +95,7 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
   <input type="color" id="accentColor" value="#2563eb" title="Accent Color">
 </div>
 
+<input type="file" id="photo" accept="image/*">
 <input type="text" id="name" placeholder="Full Name">
 <input type="text" id="title" placeholder="Job Title">
 <input type="text" id="email" placeholder="Email">
@@ -114,6 +121,8 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 <h2>Live Resume Preview</h2>
 <div id="resume" class="resume template-classic">
 <div class="resume-left">
+<img id="p-photo" src="" alt="Your Photo" style="display:none;">
+
 <h4>Contact</h4>
 <p id="p-contact">Email | Phone | LinkedIn</p>
 
@@ -148,10 +157,10 @@ footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top
 
 <h4>References</h4>
 <ul id="p-references"><li>Your references will appear here.</li></ul>
+</div>
+</div>
 
-</div>
 <div class="watermark" id="watermark">Created with Free Resume Builder</div>
-</div>
 </div>
 
 </main>
@@ -163,6 +172,7 @@ let isPremium = false;
 
 // Inputs
 const inputs = {
+photo: document.getElementById("photo"),
 name: document.getElementById("name"),
 title: document.getElementById("title"),
 email: document.getElementById("email"),
@@ -180,6 +190,7 @@ references: document.getElementById("references")
 };
 
 // Preview Elements
+const pPhoto = document.getElementById("p-photo");
 const pName = document.getElementById("p-name");
 const pTitle = document.getElementById("p-title");
 const pContact = document.getElementById("p-contact");
@@ -200,8 +211,24 @@ const templateSelect = document.getElementById("templateSelect");
 const fontSelect = document.getElementById("fontSelect");
 const accentColor = document.getElementById("accentColor");
 
-// Update preview on input
+// Live update
 Object.values(inputs).forEach(input => input.oninput = updatePreview);
+
+// Handle photo upload
+inputs.photo.addEventListener("change", function(){
+const file = this.files[0];
+if(file){
+const reader = new FileReader();
+reader.onload = function(e){
+pPhoto.src = e.target.result;
+pPhoto.style.display = "block";
+};
+reader.readAsDataURL(file);
+}else{
+pPhoto.src = "";
+pPhoto.style.display = "none";
+}
+});
 
 templateSelect.onchange = () => {
 let selected = templateSelect.value;
@@ -228,6 +255,7 @@ if(inputs.phone.value) contact.push(inputs.phone.value);
 if(inputs.linkedin.value) contact.push(inputs.linkedin.value);
 pContact.textContent = contact.join(" | ") || "Email | Phone | LinkedIn";
 
+// Summary
 pSummary.textContent = inputs.summary.value || "Your professional summary will appear here.";
 
 // Populate Lists
@@ -249,7 +277,7 @@ populateList(inputs.achievements, pAchievements, "Your achievements will appear 
 populateList(inputs.languages, pLanguages, "Your languages will appear here.");
 populateList(inputs.references, pReferences, "Your references will appear here.");
 
-// Apply font & accent
+// Apply font & accent color
 resumeDiv.querySelectorAll("h1, h3, h4").forEach(h => h.style.color = accentColor.value);
 resumeDiv.style.fontFamily = fontSelect.value;
 }
