@@ -8,20 +8,22 @@
 />
 <title>Designer-Grade Resume Builder PH</title>
 
-<!-- Firebase (COMPAT) -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<!-- PDF + Icons -->
+<!-- PDF & Icons -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 
 <style>
+/* ===== Base ===== */
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 body{background:#f3f4f6}
 a{text-decoration:none}
 
+/* Hero */
 .hero{
   background:#2563eb;color:#fff;text-align:center;padding:60px 20px
 }
@@ -32,28 +34,25 @@ a{text-decoration:none}
   border-radius:8px;font-weight:bold;display:inline-block
 }
 
+/* Layout */
 main{
   display:flex;flex-wrap:wrap;gap:20px;
   padding:20px;justify-content:center
 }
-
 .section{
   background:#fff;padding:20px;border-radius:8px;
   flex:1;min-width:300px;max-width:480px
 }
-
 h2{
   color:#2563eb;border-bottom:2px solid #2563eb;
   margin-bottom:12px
 }
-
 input,textarea,select,button{
   width:100%;padding:12px;margin-bottom:10px;
   border-radius:5px;font-size:16px
 }
 input,textarea,select{border:1px solid #ccc}
 textarea{resize:vertical}
-
 button{
   border:none;background:#2563eb;color:#fff;
   font-weight:bold;cursor:pointer
@@ -61,7 +60,7 @@ button{
 button.upgrade{background:#16a34a}
 button:hover{opacity:.9}
 
-/* ===== Resume ===== */
+/* Resume */
 .resume{
   display:flex;max-width:800px;width:100%;
   box-shadow:0 4px 15px rgba(0,0,0,.12);
@@ -84,9 +83,9 @@ button:hover{opacity:.9}
   margin-top:15px;border-bottom:2px solid #2563eb
 }
 .resume-main ul{padding-left:18px}
-
 .watermark{text-align:center;font-size:12px;opacity:.5;margin-top:10px}
 
+/* Templates */
 .template-modern .resume-sidebar{
   background:#fff;color:#2563eb;border-right:2px solid #2563eb
 }
@@ -94,7 +93,7 @@ button:hover{opacity:.9}
   background:#111;color:#fbbf24
 }
 
-/* ===== MOBILE ===== */
+/* Mobile */
 @media(max-width:768px){
   main{flex-direction:column;padding:12px}
   .section{max-width:100%}
@@ -187,7 +186,7 @@ Created with Free Resume Builder
 <footer>© 2026 Resume Builder PH</footer>
 
 <script>
-/* ===== FIREBASE ===== */
+/* ===== Firebase ===== */
 const firebaseConfig={
   apiKey:"AIzaSyDAPHPwW8vpsyhuOTv9bpI1dxvY69p9h8M",
   authDomain:"resumeph-6e60c.firebaseapp.com",
@@ -202,7 +201,7 @@ const db=firebase.firestore();
 
 let isPremium=false;
 
-/* ===== PREVIEW ===== */
+/* ===== Preview ===== */
 function updatePreview(){
   pName.textContent=name.value;
   pTitle.textContent=title.value;
@@ -233,7 +232,7 @@ photo.addEventListener("change",()=>{
   r.readAsDataURL(photo.files[0]);
 });
 
-/* ===== TEMPLATE ===== */
+/* ===== Template ===== */
 templateSelect.onchange=()=>{
   if(!isPremium && templateSelect.value!=="classic"){
     alert("Premium template");
@@ -242,39 +241,56 @@ templateSelect.onchange=()=>{
   resume.className=`resume template-${templateSelect.value}`;
 };
 
-/* ===== AUTH ===== */
+/* ===== Auth ===== */
 function signup(){
-  auth.createUserWithEmailAndPassword(
-    loginEmail.value,loginPassword.value
-  ).then(()=>alert("Account created"))
-   .catch(e=>alert(e.message));
+  const email=document.getElementById("login-email").value;
+  const password=document.getElementById("login-password").value;
+  if(!email||!password){alert("Enter email & password");return;}
+  auth.createUserWithEmailAndPassword(email,password)
+    .then(()=>alert("Account created successfully!"))
+    .catch(e=>alert(e.message));
 }
 
 function login(){
-  auth.signInWithEmailAndPassword(
-    loginEmail.value,loginPassword.value
-  ).catch(e=>alert(e.message));
+  const email=document.getElementById("login-email").value;
+  const password=document.getElementById("login-password").value;
+  if(!email||!password){alert("Enter email & password");return;}
+  auth.signInWithEmailAndPassword(email,password)
+    .then(()=>alert("Logged in successfully!"))
+    .catch(e=>alert(e.message));
 }
 
 function logout(){auth.signOut();}
 
+/* ===== Auth State Handling ===== */
 auth.onAuthStateChanged(user=>{
-  logoutBtn.style.display=user?"block":"none";
+  const logoutBtn=document.getElementById("logoutBtn");
+  const authSection=document.getElementById("auth-section");
+  if(user){
+    logoutBtn.style.display="block";
+    authSection.querySelectorAll("input, button:not(#logoutBtn)").forEach(el=>el.style.display="none");
+    console.log("Logged in as:", user.email);
+  }else{
+    logoutBtn.style.display="none";
+    authSection.querySelectorAll("input, button").forEach(el=>el.style.display="block");
+    console.log("Logged out");
+  }
 });
 
-/* ===== SAVE ===== */
+/* ===== Save Resume ===== */
 function saveResume(){
-  if(!auth.currentUser)return alert("Login first");
-  db.collection("resumes")
-    .doc(auth.currentUser.uid)
-    .collection("items")
-    .add({
+  if(!auth.currentUser){alert("Login first");return;}
+  db.collection("resumes").doc(auth.currentUser.uid)
+    .collection("items").add({
       name:name.value,
       title:title.value,
       summary:summary.value,
+      template:templateSelect.value,
+      isPremium:isPremium,
       createdAt:firebase.firestore.FieldValue.serverTimestamp()
     })
-    .then(()=>alert("Resume saved"));
+    .then(()=>alert("Resume saved successfully!"))
+    .catch(e=>alert(e.message));
 }
 
 /* ===== PDF ===== */
@@ -288,7 +304,7 @@ function downloadPDF(){
   }).from(resume).save();
 }
 
-/* ===== PREMIUM ===== */
+/* ===== Premium Unlock ===== */
 function upgrade(){
   isPremium=true;
   watermark.style.display="none";
