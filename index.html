@@ -3,211 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Builder PH - Free & Premium Templates</title>
+<meta name="description" content="Create professional resumes online with customizable templates. Free & Premium options for students, graduates, and job seekers in the Philippines.">
+<meta name="keywords" content="resume builder, free resume, job resume, professional CV, Philippines">
+<meta property="og:title" content="Resume Builder PH">
+<meta property="og:description" content="Create professional resumes online. Free & Premium templates available.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourwebsite.com">
+<meta property="og:image" content="https://yourwebsite.com/social-image.png">
+<meta name="twitter:card" content="summary_large_image">
 
-<title>Free Online Resume Builder Philippines</title>
-<meta name="description" content="Create a professional resume online for free. Best for students, fresh graduates, and job seekers in the Philippines.">
-
-<!-- PDF Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
+* { box-sizing: border-box; font-family: Arial, sans-serif; margin:0; padding:0; }
+body { background:#f3f4f6; }
+a { text-decoration:none; }
 
-body {
-  margin: 0;
-  background: #f3f4f6;
-}
+/* Hero Section */
+.hero { background:#2563eb; color:#fff; text-align:center; padding:60px 20px; }
+.hero h1 { font-size:36px; margin-bottom:10px; }
+.hero p { font-size:18px; margin-bottom:20px; }
+.hero a.cta { display:inline-block; background:#fff; color:#2563eb; padding:15px 30px; border-radius:8px; font-weight:bold; }
 
-header {
-  background: #2563eb;
-  color: #fff;
-  padding: 24px;
-  text-align: center;
-}
+/* Main Section */
+main { display:flex; flex-wrap:wrap; gap:20px; padding:20px; justify-content:center; }
+.section { background:#fff; padding:20px; border-radius:8px; flex:1; min-width:300px; max-width:480px; }
+h2 { margin-top:0; color:#2563eb; border-bottom:2px solid #2563eb; padding-bottom:2px; }
+input, textarea, select { width:100%; padding:10px; margin-bottom:12px; border:1px solid #ccc; border-radius:5px; }
+textarea { resize:vertical; }
+button { width:100%; padding:12px; margin-top:10px; border:none; border-radius:5px; cursor:pointer; background:#2563eb; color:#fff; font-weight:bold; }
+button.upgrade { background:#16a34a; }
+button:hover { opacity:0.9; }
 
-main {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
-}
+/* Resume Templates */
+.resume { border:1px solid #ddd; padding:25px; background:#fff; margin-bottom:10px; }
+.resume h1 { margin-bottom:5px; }
+.resume h3 { margin-top:0; }
+.resume h4 { margin-bottom:5px; border-bottom:1px solid #ddd; padding-bottom:4px; }
+.resume ul { padding-left:20px; margin:5px 0; }
+.watermark { text-align:center; font-size:12px; opacity:0.5; margin-top:40px; }
 
-.section {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  flex: 1;
-  min-width: 300px;
-}
+/* Template Variations */
+.template-classic { color:#2563eb; font-family:Arial, sans-serif; }
+.template-modern { color:#333; font-family:'Helvetica Neue', sans-serif; }
+.template-bold { color:#fff; background:#2563eb; padding:15px; border-radius:5px; }
+.template-bold h1, .template-bold h3 { color:#fff; }
 
-h2 {
-  margin-top: 0;
-}
+/* Footer */
+footer { text-align:center; padding:15px; font-size:14px; color:#555; margin-top:20px; }
 
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-textarea {
-  resize: vertical;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button.upgrade {
-  background: #16a34a;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-#resume {
-  border: 1px solid #ddd;
-  padding: 25px;
-}
-
-#resume h1 {
-  margin-bottom: 5px;
-}
-
-#resume h3 {
-  margin-top: 0;
-  color: #2563eb;
-}
-
-#resume h4 {
-  margin-bottom: 5px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 4px;
-}
-
-#watermark {
-  margin-top: 30px;
-  font-size: 12px;
-  text-align: center;
-  opacity: 0.5;
-}
-
-footer {
-  text-align: center;
-  padding: 15px;
-  font-size: 14px;
-  color: #555;
-}
+/* Font + Color selectors */
+.customization { display:flex; gap:10px; margin-bottom:10px; }
+.customization select, .customization input { flex:1; }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Online Resume Builder</h1>
-  <p>Create your resume in minutes — Free for PH job seekers</p>
-</header>
+<!-- Landing Hero -->
+<section class="hero">
+<h1>Create Your Resume in Minutes</h1>
+<p>Professional, clean, and customizable templates — Free & Premium Options</p>
+<a href="#builder" class="cta">Start Building Now</a>
+</section>
 
-<main>
+<main id="builder">
 
-  <!-- FORM -->
-  <div class="section">
-    <h2>Resume Information</h2>
+<!-- FORM & Controls -->
+<div class="section">
+<h2>Enter Your Details</h2>
 
-    <input type="text" id="name" placeholder="Full Name">
-    <input type="text" id="title" placeholder="Job Title">
+<select id="templateSelect">
+  <option value="classic">Classic (Free)</option>
+  <option value="modern">Modern Minimalist (Premium)</option>
+  <option value="bold">Bold Creative (Premium)</option>
+</select>
 
-    <textarea id="summary" placeholder="Professional Summary"></textarea>
-    <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
-    <textarea id="experience" placeholder="Work Experience"></textarea>
-    <textarea id="education" placeholder="Education"></textarea>
+<div class="customization">
+  <select id="fontSelect">
+    <option value="Arial, sans-serif">Arial</option>
+    <option value="'Helvetica Neue', sans-serif">Helvetica Neue</option>
+    <option value="'Times New Roman', serif">Times New Roman</option>
+    <option value="'Roboto', sans-serif">Roboto</option>
+  </select>
+  <input type="color" id="accentColor" value="#2563eb" title="Accent Color">
+</div>
 
-    <button onclick="downloadPDF()">Download Resume (Free)</button>
-    <button class="upgrade" onclick="upgrade()">Remove Watermark – ₱199</button>
-  </div>
+<input type="text" id="name" placeholder="Full Name">
+<input type="text" id="title" placeholder="Job Title">
+<input type="text" id="email" placeholder="Email">
+<input type="text" id="phone" placeholder="Phone Number">
+<input type="text" id="linkedin" placeholder="LinkedIn / Portfolio URL">
 
-  <!-- PREVIEW -->
-  <div class="section">
-    <h2>Live Preview</h2>
+<textarea id="summary" placeholder="Professional Summary"></textarea>
+<textarea id="skills" placeholder="Skills (comma separated)"></textarea>
+<textarea id="experience" placeholder="Work Experience (one per line: Job | Company | Dates)"></textarea>
+<textarea id="education" placeholder="Education (one per line: Degree | School | Year)"></textarea>
 
-    <div id="resume">
-      <h1 id="p-name">Your Name</h1>
-      <h3 id="p-title">Job Title</h3>
+<button onclick="downloadPDF()">Download Resume (Free)</button>
+<button class="upgrade" onclick="upgrade()">Remove Watermark & Unlock Premium</button>
+</div>
 
-      <h4>Summary</h4>
-      <p id="p-summary">Your professional summary will appear here.</p>
+<!-- Preview -->
+<div class="section">
+<h2>Live Resume Preview</h2>
+<div id="resume" class="resume template-classic">
+<h1 id="p-name">Your Name</h1>
+<h3 id="p-title">Job Title</h3>
+<p id="p-contact">Email | Phone | LinkedIn</p>
 
-      <h4>Skills</h4>
-      <p id="p-skills">Your skills</p>
+<h4>Professional Summary</h4>
+<p id="p-summary">Your professional summary will appear here.</p>
 
-      <h4>Experience</h4>
-      <p id="p-experience">Your experience</p>
+<h4>Skills</h4>
+<p id="p-skills">Your skills will appear here.</p>
 
-      <h4>Education</h4>
-      <p id="p-education">Your education</p>
+<h4>Experience</h4>
+<ul id="p-experience"><li>Your work experience will appear here.</li></ul>
 
-      <div id="watermark">Created with Free Resume Builder</div>
-    </div>
-  </div>
+<h4>Education</h4>
+<ul id="p-education"><li>Your education will appear here.</li></ul>
 
+<div class="watermark" id="watermark">Created with Free Resume Builder</div>
+</div>
+</div>
 </main>
 
-<footer>
-  © 2026 Resume Builder PH • Free & Premium Options Available
-</footer>
+<footer>© 2026 Resume Builder PH • Free & Premium Options • Privacy Policy / Terms</footer>
 
 <script>
 let isPremium = false;
 
 // Inputs
-const nameInput = document.getElementById("name");
-const titleInput = document.getElementById("title");
-const summaryInput = document.getElementById("summary");
-const skillsInput = document.getElementById("skills");
-const experienceInput = document.getElementById("experience");
-const educationInput = document.getElementById("education");
+const inputs = {
+name: document.getElementById("name"),
+title: document.getElementById("title"),
+email: document.getElementById("email"),
+phone: document.getElementById("phone"),
+linkedin: document.getElementById("linkedin"),
+summary: document.getElementById("summary"),
+skills: document.getElementById("skills"),
+experience: document.getElementById("experience"),
+education: document.getElementById("education")
+};
 
 // Preview
 const pName = document.getElementById("p-name");
 const pTitle = document.getElementById("p-title");
+const pContact = document.getElementById("p-contact");
 const pSummary = document.getElementById("p-summary");
 const pSkills = document.getElementById("p-skills");
 const pExperience = document.getElementById("p-experience");
 const pEducation = document.getElementById("p-education");
 const watermark = document.getElementById("watermark");
+const resumeDiv = document.getElementById("resume");
+
+// Template & Customization
+const templateSelect = document.getElementById("templateSelect");
+const fontSelect = document.getElementById("fontSelect");
+const accentColor = document.getElementById("accentColor");
 
 // Live update
-nameInput.oninput = () => pName.textContent = nameInput.value || "Your Name";
-titleInput.oninput = () => pTitle.textContent = titleInput.value || "Job Title";
-summaryInput.oninput = () => pSummary.textContent = summaryInput.value;
-skillsInput.oninput = () => pSkills.textContent = skillsInput.value;
-experienceInput.oninput = () => pExperience.textContent = experienceInput.value;
-educationInput.oninput = () => pEducation.textContent = educationInput.value;
+Object.values(inputs).forEach(input => input.oninput = updatePreview);
+templateSelect.onchange = () => {
+let selected = templateSelect.value;
+if(!isPremium && (selected==="modern" || selected==="bold")){
+alert("This template is premium! Please upgrade to unlock.");
+templateSelect.value="classic";
+selected="classic";
+}
+resumeDiv.className = `resume template-${selected}`;
+updatePreview();
+};
 
-// Download PDF
-function downloadPDF() {
-  watermark.style.display = isPremium ? "none" : "block";
-  html2pdf().from(document.getElementById("resume")).save("resume.pdf");
+fontSelect.onchange = () => resumeDiv.style.fontFamily = fontSelect.value;
+accentColor.oninput = () => {
+resumeDiv.querySelectorAll("h2, h3, h4").forEach(h => h.style.color = accentColor.value);
+};
+
+function updatePreview(){
+pName.textContent = inputs.name.value || "Your Name";
+pTitle.textContent = inputs.title.value || "Job Title";
+let contact = [];
+if(inputs.email.value) contact.push(inputs.email.value);
+if(inputs.phone.value) contact.push(inputs.phone.value);
+if(inputs.linkedin.value) contact.push(inputs.linkedin.value);
+pContact.textContent = contact.join(" | ") || "Email | Phone | LinkedIn";
+pSummary.textContent = inputs.summary.value || "Your professional summary will appear here.";
+pSkills.textContent = inputs.skills.value || "Your skills will appear here.";
+
+// Experience
+pExperience.innerHTML="";
+if(inputs.experience.value){
+inputs.experience.value.split("\n").forEach(exp=>{
+if(exp.trim()!==""){ let li=document.createElement("li"); li.textContent=exp; pExperience.appendChild(li); }
+});
+}else{ let li=document.createElement("li"); li.textContent="Your work experience will appear here."; pExperience.appendChild(li); }
+
+// Education
+pEducation.innerHTML="";
+if(inputs.education.value){
+inputs.education.value.split("\n").forEach(edu=>{
+if(edu.trim()!==""){ let li=document.createElement("li"); li.textContent=edu; pEducation.appendChild(li); }
+});
+}else{ let li=document.createElement("li"); li.textContent="Your education will appear here."; pEducation.appendChild(li); }
+
+// Apply current accent color & font
+resumeDiv.querySelectorAll("h2, h3, h4").forEach(h => h.style.color = accentColor.value);
+resumeDiv.style.fontFamily = fontSelect.value;
 }
 
-// Upgrade simulation
-function upgrade() {
-  alert("Payment successful! Watermark removed.");
-  isPremium = true;
-  watermark.style.display = "none";
+// PDF download
+function downloadPDF(){
+watermark.style.display = isPremium ? "none" : "block";
+html2pdf().from(resumeDiv).save("resume.pdf");
+}
+
+// Upgrade
+function upgrade(){
+alert("Payment successful! Premium templates unlocked.");
+isPremium=true;
+watermark.style.display="none";
 }
 </script>
 
